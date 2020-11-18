@@ -1,0 +1,14 @@
+<app-toolbar-without-menu></app-toolbar-without-menu>
+
+<form #cookbookInputForm="ngForm" (ngSubmit)="addCookbook(cookbookInputForm.valid)" *ngIf="!loading" class="input-fields-container">
+
+  <mat-form-field>
+    <input name="brand" matInput placeholder="Name" [(ngModel)]="cookbook.name" #name="ngModel" maxlength="30" required/>
+    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger"></div>
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" type="submit">
+    Create
+  </button>
+
+</form>

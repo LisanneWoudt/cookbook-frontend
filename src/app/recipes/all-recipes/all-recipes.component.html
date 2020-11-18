@@ -1,5 +1,17 @@
-<app-toolbar></app-toolbar>
+<app-toolbar [cookbooks]="chef?.cookbooks"></app-toolbar>
 <div class="page">
-  <p>all-recipes works!</p>
+  <mat-list>
+    <mat-list-item *ngFor="let recipe of recipes">
+      <img matListAvatar src="assets/img/carrotcake.jpg" alt="assets/img/carrotcake.jpg">
+      <h3 matLine> {{recipe.title}} </h3>
+      <p matLine>
+        <span> {{recipe.description}} </span>
+      </p>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+  <button mat-fab color="primary" class="floating-button-add" (click)="addRecipe()">
+    <mat-icon>add</mat-icon>
+  </button>
 </div>
 

@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {RecipeService} from "../../shared/services/recipe.service";
+import {Component, OnInit} from '@angular/core';
+import {DataService} from "../../shared/services/data.service";
+import {Cookbook} from "../../dto/cookbook";
+import {CookbookService} from "../../shared/services/cookbook.service";
+import {Recipe} from "../../dto/recipe";
+import {Chef} from "../../dto/chef";
+import {ChefService} from "../../shared/services/chef.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-all-recipes',
@@ -8,19 +14,41 @@ import {RecipeService} from "../../shared/services/recipe.service";
 })
 export class AllRecipesComponent implements OnInit {
 
-  recipes: [];
-  chefId: number;
+  recipes: Recipe[];
+  chef: Chef;
+  cookbook: Cookbook;
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(private dataService: DataService, private chefService: ChefService,
+              private cookbookService: CookbookService, private router: Router) { }
 
   ngOnInit() {
-    this.chefId = 1;
-    this.getRecipes();
+    this.chefService.getChef(this.dataService.getChefId()).subscribe(result => {
+      this.dataService.setChef(result);
+      this.chef = result;
+
+      this.getCookbookByChefId(result.id);
+    });
   }
 
-  getRecipes() {
-    this.recipeService.getRecipe(this.chefId).subscribe(result => {
+  getCookbookByChefId(chefId: number) {
+    this.cookbookService.getCookbookByChefId(chefId).subscribe(result => {
       console.log(result);
+      if (result.length > 1) {
+        this.cookbook = result.find(cookbook => cookbook.id === this.chef.lastSelectedCookbookId);
+      } else {
+        this.cookbook = result[0];
+      }
+      this.getRecipes(this.cookbook.id);
+    })
+  }
+
+  getRecipes(cookbookId: number) {
+    this.cookbookService.getCookbook(cookbookId).subscribe(result => {
+      this.recipes = result.recipes;
     });
+  }
+
+  addRecipe() {
+    this.router.navigate(['/recipes/add']);
   }
 }

@@ -4,5 +4,20 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .page {
-  margin-left: 10px;
+  margin: 10px 0 0 10px;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.input-fields-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.input-fields-container .button {
+  width: 100%;
 }

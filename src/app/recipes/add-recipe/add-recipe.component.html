@@ -1,0 +1,29 @@
+<app-toolbar-without-menu></app-toolbar-without-menu>
+<div class="page">
+
+  <form #recipeInputForm="ngForm" (ngSubmit)="addRecipe(recipeInputForm.valid)" *ngIf="!loading" class="input-fields-container">
+
+    <mat-form-field>
+      <input name="brand" matInput placeholder="Name" [(ngModel)]="recipe.title" #name="ngModel" maxlength="30" required/>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger"></div>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea name="description" matInput placeholder="Description" [(ngModel)]="recipe.description" #description="ngModel" maxlength="100"></textarea>
+      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger"></div>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input  name="calories" matInput placeholder="Number of calories" [(ngModel)]="recipe.calories" #calories="ngModel"
+              pattern="^[0-9]{0,5}$" maxlength="5"/>
+      <div *ngIf="calories.invalid && (calories.dirty || calories.touched)" class="alert alert-danger"></div>
+    </mat-form-field>
+
+
+    <button mat-flat-button color="primary" type="submit">
+      Create
+    </button>
+
+  </form>
+
+</div>
