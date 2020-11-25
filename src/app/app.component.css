@@ -1,0 +1,35 @@
+.mat-input-element:disabled {
+  opacity:1 !important;
+  color: black !important;
+}
+
+.input-disabled {
+  opacity:1 !important;
+  color: black !important;
+}
+
+input.input-disabled {
+  opacity:1 !important;
+  color: black !important;
+}
+
+input {
+  opacity:1 !important;
+  color: black !important;
+}
+
+div:disabled {
+  opacity:1 !important;
+  color: black !important;
+}
+
+.mat-form-field-disabled .mat-form-field-underline {
+  opacity:1 !important;
+  color: black !important;
+   }
+
+.mat-input-element:disabled {
+  opacity:1 !important;
+  color: black !important;
+}
+

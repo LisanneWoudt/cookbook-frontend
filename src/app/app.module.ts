@@ -21,6 +21,8 @@ import { DialogComponent } from './shared/dialog/dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatListModule} from "@angular/material/list";
 import {MatSelectModule} from "@angular/material/select";
+import { RecipeInputFieldsComponent } from './recipes/recipe-input-fields/recipe-input-fields.component';
+import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import {MatSelectModule} from "@angular/material/select";
     AddRecipeComponent,
     AddCookbookComponent,
     ToolbarWithoutMenuComponent,
-    DialogComponent
+    DialogComponent,
+    RecipeInputFieldsComponent,
+    RecipeDetailComponent
   ],
   imports: [
     BrowserModule,

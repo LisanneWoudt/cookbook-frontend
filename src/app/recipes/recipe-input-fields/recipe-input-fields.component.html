@@ -1,0 +1,38 @@
+<div class="page">
+  <form #recipeInputForm="ngForm" (ngSubmit)="addRecipe(recipeInputForm.valid)" *ngIf="!loading" class="input-fields-container">
+
+    <mat-form-field class="input-disabled">
+      <input class="input-disabled" name="brand" matInput placeholder="Name" [(ngModel)]="recipe.title" #name="ngModel"
+             [disabled]="editDisabled" maxlength="30" required/>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger"></div>
+    </mat-form-field>
+
+    <div *ngIf="recipe?.image ">
+      <img class="preview-image" [src]="recipe.image">
+      <mat-icon *ngIf="!editDisabled()" (click)="removeImage()">delete</mat-icon>
+    </div>
+
+    <div *ngIf="!recipe?.image" class="add-image-button">
+      <button mat-stroked-button type="button" color="primary" (click)="imgFileInput.click()">Add picture</button>
+      <input hidden type="file" #imgFileInput (change)="processImage($event.target.files[0])" name="image" />
+    </div>
+
+    <mat-form-field>
+      <textarea name="description" matInput placeholder="Description" [(ngModel)]="recipe.description" #description="ngModel"
+                [disabled]="editDisabled" maxlength="100"></textarea>
+      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger"></div>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input  name="calories" matInput placeholder="Number of calories" [(ngModel)]="recipe.calories" #calories="ngModel"
+              [disabled]="editDisabled" pattern="^[0-9]{0,5}$" maxlength="5"/>
+      <div *ngIf="calories.invalid && (calories.dirty || calories.touched)" class="alert alert-danger"></div>
+    </mat-form-field>
+
+    <button *ngIf="!editDisabled()" mat-flat-button color="primary" type="submit">
+      Create
+    </button>
+
+  </form>
+
+</div>

@@ -2,8 +2,8 @@
 <div class="page">
   <mat-list>
     <mat-list-item *ngFor="let recipe of recipes">
-      <img matListAvatar src="assets/img/carrotcake.jpg" alt="assets/img/carrotcake.jpg">
-      <h3 matLine> {{recipe.title}} </h3>
+      <img matListAvatar [src]="recipe.image" alt="">
+      <h3 matLine (click)="toRecipeDetail(recipe.id)"> {{recipe.title}} </h3>
       <p matLine>
         <span> {{recipe.description}} </span>
       </p>

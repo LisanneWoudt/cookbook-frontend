@@ -3,4 +3,6 @@ export class Recipe {
   title: string;
   description: string;
   calories: number
+  cookbookId: number;
+  image: any;
 }
