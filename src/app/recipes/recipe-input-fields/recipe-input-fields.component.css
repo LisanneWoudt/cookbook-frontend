@@ -1,5 +1,6 @@
 .preview-image {
-  max-height: 200px;
+  max-width: 85vw;
+  max-height: 500px;
   object-fit: scale-down;
   margin-bottom: 10px;
 }
@@ -16,12 +17,10 @@
 }
 
 .mat-input-element:disabled {
-  opacity:1 !important;
   color: black !important;
 }
 
-.input-disabled {
+.mat-option-disabled {
   color: black !important;
 }
-
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import {Recipe} from "../../dto/recipe";
 import {ImageService} from "../services/image.service";
 import {DomSanitizer} from "@angular/platform-browser";
@@ -9,8 +9,6 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class ImageHelper {
 
   constructor(private imageService: ImageService, private sanitizer: DomSanitizer) { }
-
-  ngOnInit() {}
 
   getImage(recipe: Recipe, isThumbnail: boolean) {
     if (isThumbnail) {

@@ -1,5 +1,13 @@
 <app-toolbar [cookbooks]="chef?.cookbooks"></app-toolbar>
 <div class="page">
+  <div *ngIf="loading">
+    <mat-progress-spinner
+      class="spinner"
+      color="primary"
+      mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+
   <mat-list>
     <mat-list-item *ngFor="let recipe of recipes">
       <img matListAvatar [src]="recipe.image" alt="">

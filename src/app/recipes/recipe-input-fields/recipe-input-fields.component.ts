@@ -1,21 +1,23 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {Recipe} from "../../dto/recipe";
 import {RecipeService} from "../../shared/services/recipe.service";
 import {ImageService} from "../../shared/services/image.service";
 import {DataService} from "../../shared/services/data.service";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-recipe-input-fields',
   templateUrl: './recipe-input-fields.component.html',
-  styleUrls: ['./recipe-input-fields.component.css']
+  styleUrls: ['./recipe-input-fields.component.css', '../../app.component.css']
 })
 export class RecipeInputFieldsComponent implements OnInit {
 
-  loading: boolean;
+  @Input() recipe: Recipe = new Recipe();
+  @Input() loading: boolean = true;
 
-  @Input('recipe') recipe: Recipe = new Recipe();
-  //imageContents: string | ArrayBuffer;
   imageFile: File;
+  categories = new FormControl();
+  categoryList: string[] = ['Dinner', 'Lunch', 'Breakfast', 'Healthy', 'Easy'];
 
   constructor(private recipeService: RecipeService, private imageService: ImageService,
               private dataService: DataService) { }
@@ -31,8 +33,9 @@ export class RecipeInputFieldsComponent implements OnInit {
     if (!formValid) {
       return;
     }
-
-    console.log(this.recipe);
+    if (this.categories.value) {
+      this.recipe.categories = this.categories.value;
+    }
     this.recipe.cookbookId = this.dataService.getCookbook().id;
 
     this.recipeService.addRecipe(this.recipe).subscribe(data => {

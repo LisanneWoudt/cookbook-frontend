@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DataService} from "../../shared/services/data.service";
 import {Cookbook} from "../../dto/cookbook";
 import {CookbookService} from "../../shared/services/cookbook.service";
@@ -13,14 +13,14 @@ import {ImageHelper} from "../../shared/helper/image.helper";
 @Component({
   selector: 'app-all-recipes',
   templateUrl: './all-recipes.component.html',
-  styleUrls: ['./all-recipes.component.css']
+  styleUrls: ['./all-recipes.component.css', '../../app.component.css']
 })
 export class AllRecipesComponent implements OnInit {
 
   recipes: Recipe[];
   chef: Chef;
   cookbook: Cookbook;
-  loading: boolean;
+  loading: boolean = true;
   promises: Array<any> = [];
 
   constructor(private dataService: DataService, private chefService: ChefService,
