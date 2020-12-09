@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Recipe} from "../../dto/recipe";
 import {RecipeService} from "../../shared/services/recipe.service";
 import {ImageHelper} from "../../shared/helper/image.helper";
@@ -18,7 +18,7 @@ export class RecipeDetailComponent implements OnInit, AfterViewInit {
   @ViewChild('recipeInputFields', {static: false}) child;
 
   constructor(private route: ActivatedRoute, private recipeService: RecipeService,
-              private imageHelper: ImageHelper) { }
+              private imageHelper: ImageHelper, private router: Router) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -44,4 +44,23 @@ export class RecipeDetailComponent implements OnInit, AfterViewInit {
       this.promises.push(this.imageHelper.getImage(this.recipe, false));
     });
   }
+
+  editRecipe() {
+    this.child.setEditDisabled(false);
+   // this.toolbarEditEnabled = true;
+  }
+
+  cancelEdit() {
+    this.child.setEditDisabled(true);
+    //this.toolbarEditEnabled = false;
+  }
+
+  deleteRecipe() {
+    this.child.confirmDelete();
+  }
+
+  goBack() {
+    this.router.navigate(['/home']);
+  }
+
 }

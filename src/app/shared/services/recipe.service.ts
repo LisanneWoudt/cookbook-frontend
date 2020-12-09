@@ -17,7 +17,12 @@ export class RecipeService {
     return this.http.get<Recipe>(environment.host + this.baseUrl + id);
   }
 
-  addRecipe(recipe: Recipe): Observable<Recipe> {
-    return this.http.post<Recipe>(environment.host + this.baseUrl + 'add', recipe);
+  saveRecipe(recipe: Recipe): Observable<Recipe> {
+    return this.http.post<Recipe>(environment.host + this.baseUrl + 'save', recipe);
   }
+
+  deleteRecipe(id: number): Observable<Recipe> {
+    return this.http.delete<Recipe>(environment.host + this.baseUrl + id);
+  }
+
 }

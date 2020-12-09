@@ -11,14 +11,8 @@ export class DialogComponent implements OnInit {
 
   isOk = true;
 
-  constructor(public dialogRef: MatDialogRef<DialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit() {}
-
-  cancel(): void {
-    this.isOk = false;
-    this.dialogRef.close(this.isOk);
-  }
 
 }

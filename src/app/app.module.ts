@@ -24,6 +24,9 @@ import {MatSelectModule} from "@angular/material/select";
 import { RecipeInputFieldsComponent } from './recipes/recipe-input-fields/recipe-input-fields.component';
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { ToolbarRecipeDetailComponent } from './shared/toolbar/toolbar-recipe-detail/toolbar-recipe-detail.component';
+import { DialogWithCancelButtonComponent } from './shared/dialog/dialog-with-cancel-button/dialog-with-cancel-button.component';
+import { ToolbarCheckComponent } from './shared/toolbar/toolbar-check/toolbar-check.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     ToolbarWithoutMenuComponent,
     DialogComponent,
     RecipeInputFieldsComponent,
-    RecipeDetailComponent
+    RecipeDetailComponent,
+    ToolbarRecipeDetailComponent,
+    DialogWithCancelButtonComponent,
+    ToolbarCheckComponent
   ],
     imports: [
         BrowserModule,
@@ -57,6 +63,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [DialogComponent]
+  entryComponents: [
+    DialogComponent,
+    DialogWithCancelButtonComponent]
 })
 export class AppModule { }

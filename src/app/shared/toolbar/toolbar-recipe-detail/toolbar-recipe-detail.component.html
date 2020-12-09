@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <mat-icon class="toolbar-back-icon" (click)="toGoBack()">arrow_back</mat-icon>
+    <span class="toolbar-spacer"></span>
+    <div>
+      <button mat-icon-button (click)="toEditRecipe()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button (click)="toDeleteRecipe()" mat-menu-item>
+          <mat-icon>delete</mat-icon>
+          <span>Delete recipe</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+

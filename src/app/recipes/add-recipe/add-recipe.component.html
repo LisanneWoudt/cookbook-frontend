@@ -1,2 +1,5 @@
-<app-toolbar-without-menu></app-toolbar-without-menu>
-<app-recipe-input-fields [loading]="false"></app-recipe-input-fields>
+<app-toolbar-without-menu (goBack)="goBack()"></app-toolbar-without-menu>
+<app-recipe-input-fields
+  [loading]="false"
+  [editDisabled]="false">
+</app-recipe-input-fields>
