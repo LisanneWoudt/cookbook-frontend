@@ -14,7 +14,9 @@ export class ImageHelper {
     if (isThumbnail) {
       this.imageService.downloadThumbnail(recipe.id).subscribe(
         data => {
-          this.setRecipeImage(recipe, data);
+          if (data.size != 0) {
+            this.setRecipeImage(recipe, data);
+          }
         },
         error => {
           console.error(error);
@@ -23,7 +25,9 @@ export class ImageHelper {
     } else {
       this.imageService.downloadImage(recipe.id).subscribe(
         data => {
-          this.setRecipeImage(recipe, data);
+          if (data.size != 0) {
+            this.setRecipeImage(recipe, data);
+          }
         },
         error => {
           console.error(error);

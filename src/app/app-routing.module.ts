@@ -7,8 +7,8 @@ import {RecipeDetailComponent} from "./recipes/recipe-detail/recipe-detail.compo
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: AllRecipesComponent, data: {title: 'Home'}},
-  { path: 'cookbook/add', component: AddCookbookComponent, data: {title: 'Create cookbook'}},
+  { path: 'home', component: AllRecipesComponent},
+  { path: 'cookbook/add', component: AddCookbookComponent},
   { path: 'recipes/add', component: AddRecipeComponent, data: {title: 'Create recipe'}},
   { path: 'recipes/:id', component: RecipeDetailComponent, data: {title: 'Recipe details'}},
 ];

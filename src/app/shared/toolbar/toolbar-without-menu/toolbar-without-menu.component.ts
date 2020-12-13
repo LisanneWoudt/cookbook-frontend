@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -9,18 +9,11 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class ToolbarWithoutMenuComponent implements OnInit {
 
   @Output() goBack = new EventEmitter();
+  @Input() title: string;
 
-  sub: any;
-  title: string;
-
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor() { }
 
   ngOnInit() {
-    this.sub = this.route
-      .data
-      .subscribe(data => {
-        this.title = data.title;
-      });
   }
 
   toGoBack() {

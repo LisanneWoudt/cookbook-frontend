@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Recipe} from "../../dto/recipe";
 import {RecipeService} from "../../shared/services/recipe.service";
 import {ImageService} from "../../shared/services/image.service";
 import {DataService} from "../../shared/services/data.service";
-import {FormControl} from "@angular/forms";
+import {FormControl, NgModel} from "@angular/forms";
 import {DialogWithCancelButtonComponent} from "../../shared/dialog/dialog-with-cancel-button/dialog-with-cancel-button.component";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
@@ -18,6 +18,8 @@ export class RecipeInputFieldsComponent implements OnInit {
   @Input() recipe: Recipe = new Recipe();
   @Input() loading: boolean = true;
   @Input() editDisabled: boolean = true;
+  @Output() recipeSuccesfullySaved = new EventEmitter<string>();
+  @Output() cancelEdit = new EventEmitter();
 
   imageFile: File;
   categories = new FormControl();
@@ -60,12 +62,30 @@ export class RecipeInputFieldsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.recipeService.deleteRecipe(this.recipe.id).subscribe(data => {
-          this.router.navigate(['/home']);
+        this.recipeService.deleteRecipe(this.recipe.id).subscribe(() => {
+          this.goToHome();
         }, error => {
-          console.log('error!');
-          console.log(error);
+          console.error('error!');
+          console.error(error);
         });
+      }
+    });
+  }
+
+  //TODO: Choice to save recipe
+  confirmCancelRecipe() {
+    const dialogRef = this.dialog.open(DialogWithCancelButtonComponent, {
+      width: '250px',
+      data: {title : 'Cancel', message: 'Are you sure you want to cancel? Your recipe will not be saved.'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        if (this.recipe.id === null) {
+          this.goToHome()
+        } else {
+          this.toCancelEdit();
+        }
       }
     });
   }
@@ -97,11 +117,26 @@ export class RecipeInputFieldsComponent implements OnInit {
   responseSuccess() {
     this.loading = false;
     this.editDisabled = true;
+    this.recipeSuccesfullySaved.next(this.recipe.title);
   }
 
   responseError(error: Error) {
     this.loading = false;
     //super.handleError(error, this.router, this.dataService);
+  }
+
+  toCancelEdit() {
+    this.cancelEdit.next();
+  }
+
+  goToLink() {
+    if (this.recipe !== undefined && this.recipe.url !== undefined && this.editDisabled) {
+      window.open(this.recipe.url, "_blank");
+    }
+  }
+
+  goToHome() {
+    this.router.navigate(['/home']);
   }
 
 }

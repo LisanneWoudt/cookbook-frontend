@@ -1,4 +1,4 @@
-<app-toolbar [cookbooks]="chef?.cookbooks"></app-toolbar>
+<app-toolbar [cookbookName]="cookbook.name"></app-toolbar>
 <div class="page">
   <div *ngIf="loading">
     <mat-progress-spinner
@@ -10,7 +10,8 @@
 
   <mat-list>
     <mat-list-item *ngFor="let recipe of recipes">
-      <img matListAvatar [src]="recipe.image" alt="">
+      <img *ngIf="recipe.image" matListAvatar [src]="recipe.image">
+      <img *ngIf="!recipe.image" matListAvatar src="assets/img/no-image.png" alt="...">
       <h3 matLine (click)="toRecipeDetail(recipe.id)"> {{recipe.title}} </h3>
       <p matLine>
         <span> {{recipe.description}} </span>

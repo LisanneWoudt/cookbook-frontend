@@ -1,5 +1,8 @@
-<app-toolbar-without-menu (goBack)="goBack()"></app-toolbar-without-menu>
+<app-toolbar-without-menu [title]="toolbarTitle" *ngIf="!recipeCreated" (goBack)="confirmCancel()"></app-toolbar-without-menu>
+<app-toolbar-without-menu [title]="toolbarTitle" *ngIf="recipeCreated" (goBack)="goBack()"></app-toolbar-without-menu>
 <app-recipe-input-fields
   [loading]="false"
-  [editDisabled]="false">
+  [editDisabled]="false"
+  (cancelEdit)="goBack()"
+  (recipeSuccesfullySaved)="setRecipeCreated($event)">
 </app-recipe-input-fields>

@@ -9,19 +9,11 @@ import {Cookbook} from "../../dto/cookbook";
 })
 export class ToolbarComponent implements OnInit {
 
-  sub: any;
-  title: string;
+  @Input() cookbookName: string;
 
-  @Input() cookbooks: Cookbook[];
-
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
-    this.sub = this.route
-      .data
-      .subscribe(data => {
-        this.title = data.title;
-      });
   }
 
   addCookbook() {

@@ -1,14 +1,16 @@
-<app-toolbar-recipe-detail
+<app-toolbar-recipe-detail *ngIf="!toolbarEditEnabled"
   (editRecipe)="editRecipe()"
   (deleteRecipe)="deleteRecipe()"
   (goBack)="goBack()">
 </app-toolbar-recipe-detail>
 
-<!--<app-toolbar-check *ngIf="toolbarEditEnabled"-->
-<!--  (goBack)="cancelEdit()">-->
-<!--</app-toolbar-check>-->
+<app-toolbar-check *ngIf="toolbarEditEnabled"
+  (goBack)="confirmCancel()">
+</app-toolbar-check>
 
 <app-recipe-input-fields
   #recipeInputFields [recipe]="recipe"
-  [editDisabled]="true">
+  [editDisabled]="true"
+  (recipeSuccesfullySaved)="setToolbarEditDisabled()"
+  (cancelEdit)="cancelEdit()">
 </app-recipe-input-fields>

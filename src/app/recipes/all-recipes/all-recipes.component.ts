@@ -38,7 +38,6 @@ export class AllRecipesComponent implements OnInit {
 
   getCookbookByChefId(chefId: number) {
     this.cookbookService.getCookbookByChefId(chefId).subscribe(result => {
-      console.log(result);
       if (result.length > 1) {
         this.cookbook = result.find(cookbook => cookbook.id === this.chef.lastSelectedCookbookId);
       } else {

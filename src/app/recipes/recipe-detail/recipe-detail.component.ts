@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Recipe} from "../../dto/recipe";
 import {RecipeService} from "../../shared/services/recipe.service";
 import {ImageHelper} from "../../shared/helper/image.helper";
+import {EstimatedTime} from "../../dto/estimated-time";
 
 @Component({
   selector: 'app-recipe-detail',
@@ -14,6 +15,7 @@ export class RecipeDetailComponent implements OnInit, AfterViewInit {
   sub: any;
   recipe: Recipe;
   promises: Array<any> = [];
+  toolbarEditEnabled = false;
 
   @ViewChild('recipeInputFields', {static: false}) child;
 
@@ -22,7 +24,6 @@ export class RecipeDetailComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      console.log(params);
       this.getRecipe(+params.id);
     });
   }
@@ -40,23 +41,39 @@ export class RecipeDetailComponent implements OnInit, AfterViewInit {
   getRecipe(recipeId: number) {
     this.recipeService.getRecipe(recipeId).subscribe(data => {
       this.recipe = data;
+      this.initializeEstimatedTime(data);
       this.child.categories.setValue(this.recipe.categories);
       this.promises.push(this.imageHelper.getImage(this.recipe, false));
     });
   }
 
+  initializeEstimatedTime(recipe: Recipe) {
+    if (recipe.estimatedTime === null) {
+      recipe.estimatedTime = new EstimatedTime();
+    }
+  }
+
   editRecipe() {
     this.child.setEditDisabled(false);
-   // this.toolbarEditEnabled = true;
+    this.toolbarEditEnabled = true;
+  }
+
+  confirmCancel() {
+    this.child.confirmCancelRecipe();
   }
 
   cancelEdit() {
+    this.getRecipe(this.recipe.id);
     this.child.setEditDisabled(true);
-    //this.toolbarEditEnabled = false;
+    this.toolbarEditEnabled = false;
   }
 
   deleteRecipe() {
     this.child.confirmDelete();
+  }
+
+  setToolbarEditDisabled() {
+    this.toolbarEditEnabled = false;
   }
 
   goBack() {

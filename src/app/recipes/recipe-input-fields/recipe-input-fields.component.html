@@ -22,12 +22,12 @@
       </mat-select>
     </mat-form-field>
 
-    <div *ngIf="recipe?.image ">
+    <div *ngIf="recipe?.image">
       <img class="preview-image" [src]="recipe.image">
       <mat-icon *ngIf="!editDisabled" (click)="removeImage()">delete</mat-icon>
     </div>
 
-    <div *ngIf="!recipe?.image" class="add-image-button">
+    <div *ngIf="!recipe?.image && !editDisabled" class="add-image-button">
       <button mat-stroked-button type="button" color="primary" (click)="imgFileInput.click()">Add picture</button>
       <input hidden type="file" #imgFileInput (change)="processImage($event.target.files[0])" name="image" />
     </div>
@@ -36,6 +36,27 @@
       <textarea name="description" matInput placeholder="Description" [(ngModel)]="recipe.description" #description="ngModel"
                 [disabled]="editDisabled" maxlength="100"></textarea>
       <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger"></div>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input name="servingSize" matInput placeholder="Serving size" [(ngModel)]="recipe.servingSize" #servingSize="ngModel"
+             [disabled]="editDisabled" pattern="^[0-9]{0,2}$" maxlength="2"/>
+      <div *ngIf="servingSize.invalid && (servingSize.dirty || servingSize.touched)" class="alert alert-danger"></div>
+    </mat-form-field>
+
+    <mat-form-field class="input-disabled">
+      <div (click)="goToLink()">
+        <input type="url" class="input-disabled" name="url" matInput placeholder="Source (URL)" [(ngModel)]="recipe.url" #url="ngModel"
+               [disabled]="editDisabled" maxlength="2000"/>
+      </div>
+      <div *ngIf="url.invalid && (url.dirty || url.touched)" class="alert alert-danger"></div>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input name="minutes" matInput placeholder="Estimated time in minutes"
+             [(ngModel)]="recipe.estimatedTime === null ? '' : recipe.estimatedTime.minutes" #minutes="ngModel"
+             [disabled]="editDisabled" pattern="^[0-9]{0,3}$" maxlength="3"/>
+      <div *ngIf="minutes.invalid && (minutes.dirty || minutes.touched)" class="alert alert-danger"></div>
     </mat-form-field>
 
     <mat-form-field>
