@@ -5,34 +5,66 @@ import {CookbookService} from "../../shared/services/cookbook.service";
 import {Recipe} from "../../dto/recipe";
 import {Chef} from "../../dto/chef";
 import {ChefService} from "../../shared/services/chef.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ImageService} from "../../shared/services/image.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {ImageHelper} from "../../shared/helper/image.helper";
+import {DialogComponent} from "../../shared/dialog/dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-all-recipes',
-  templateUrl: './all-recipes.component.html',
-  styleUrls: ['./all-recipes.component.css', '../../app.component.css']
+  templateUrl: './cookbook.component.html',
+  styleUrls: ['./cookbook.component.css', '../../app.component.css']
 })
-export class AllRecipesComponent implements OnInit {
+export class CookbookComponent implements OnInit {
 
   recipes: Recipe[];
   chef: Chef;
   cookbook: Cookbook;
   loading: boolean = true;
   promises: Array<any> = [];
+  sub: any;
 
   constructor(private dataService: DataService, private chefService: ChefService,
               private cookbookService: CookbookService, private imageService: ImageService,
-              private router: Router, private sanitizer: DomSanitizer, private imageHelper: ImageHelper) { }
+              private router: Router, private route: ActivatedRoute,
+              private sanitizer: DomSanitizer, private imageHelper: ImageHelper,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      if (+params.id) {
+        this.getCookbook(+params.id);
+        this.getChef();
+      } else {
+        this.getCookbookByChef();
+      }
+    });
+  }
+
+  getChef() {
+    this.chefService.getChef(this.dataService.getChefId()).subscribe(result => {
+      this.dataService.setChef(result);
+      this.chef = result;
+    });
+  }
+
+  getCookbookByChef() {
+
     this.chefService.getChef(this.dataService.getChefId()).subscribe(result => {
       this.dataService.setChef(result);
       this.chef = result;
 
       this.getCookbookByChefId(result.id);
+    });
+  }
+
+  getCookbook(cookbookId: number) {
+    this.cookbookService.getCookbook(cookbookId).subscribe(result => {
+      this.cookbook = result;
+      this.dataService.setCookbook(result);
+      this.getRecipes(result.id);
     });
   }
 
@@ -43,6 +75,7 @@ export class AllRecipesComponent implements OnInit {
       } else {
         this.cookbook = result[0];
       }
+      this.dataService.setCookbook(this.cookbook);
       this.getRecipes(this.cookbook.id);
     })
   }
@@ -74,7 +107,29 @@ export class AllRecipesComponent implements OnInit {
     this.router.navigate(['/recipes/add']);
   }
 
+  addCookbookToChef() {
+    this.chefService.addCookbookToChef(this.chef.id, this.cookbook.id).subscribe(result => {
+      this.openDialog('Cookbook joined', 'You have succesfully joined this cookbook');
+    });
+  }
+
+  openDialog(title: string, message: string): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '250px',
+      data: {title, message}
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      window.location.reload()
+    });
+
+  }
+
+  ownCookbook() {
+    return this.dataService.isOwnCookbook();
+  }
+
   toRecipeDetail(recipeId: number) {
-    this.router.navigate(['/recipes/' + recipeId]);
+    this.router.navigate(['/recipes/' + this.cookbook.id + '/' + recipeId]);
   }
 }

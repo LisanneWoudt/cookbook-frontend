@@ -16,6 +16,7 @@ export class RecipeDetailComponent implements OnInit, AfterViewInit {
   recipe: Recipe;
   promises: Array<any> = [];
   toolbarEditEnabled = false;
+  cookbookId: number;
 
   @ViewChild('recipeInputFields', {static: false}) child;
 
@@ -24,6 +25,7 @@ export class RecipeDetailComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
+      this.cookbookId = +params.cookbookId;
       this.getRecipe(+params.id);
     });
   }
@@ -72,12 +74,20 @@ export class RecipeDetailComponent implements OnInit, AfterViewInit {
     this.child.confirmDelete();
   }
 
+  saveRecipe() {
+    this.child.saveRecipe();
+  }
+
   setToolbarEditDisabled() {
     this.toolbarEditEnabled = false;
   }
 
   goBack() {
-    this.router.navigate(['/home']);
+    if (this.cookbookId) {
+      this.router.navigate(['/cookbooks/' + this.cookbookId]);
+    } else {
+      this.router.navigate(['/cookbook']);
+    }
   }
 
 }

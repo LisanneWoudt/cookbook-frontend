@@ -2,7 +2,7 @@
   <mat-toolbar-row>
     <mat-icon class="toolbar-back-icon" (click)="toGoBack()">arrow_back</mat-icon>
     <span class="toolbar-spacer"></span>
-    <div>
+    <div *ngIf="ownCookbook()">
       <button mat-icon-button (click)="toEditRecipe()">
         <mat-icon>edit</mat-icon>
       </button>

@@ -14,7 +14,6 @@ export class ChefService {
 
   constructor(private http: HttpClient) { }
 
-
   addChef(chef: Chef): Observable<Chef> {
     return this.http.post<Chef>(environment.host + this.baseUrl + 'add', chef);
   }
@@ -27,4 +26,7 @@ export class ChefService {
     return this.http.put<Chef>(environment.host + this.baseUrl + 'set-cookbook-id', chef);
   }
 
+  addCookbookToChef(chefId: number, cookbookId: number): Observable<Chef> {
+    return this.http.get<Chef>(environment.host + this.baseUrl + 'add-cookbook?chefId=' + chefId + '&cookbookId=' + cookbookId);
+  }
 }

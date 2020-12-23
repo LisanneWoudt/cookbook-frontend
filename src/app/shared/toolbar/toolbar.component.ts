@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Cookbook} from "../../dto/cookbook";
+import {Chef} from "../../dto/chef";
 
 @Component({
   selector: 'app-toolbar',
@@ -9,7 +10,10 @@ import {Cookbook} from "../../dto/cookbook";
 })
 export class ToolbarComponent implements OnInit {
 
-  @Input() cookbookName: string;
+  @Input() cookbook: Cookbook;
+  @Input() chef: Chef;
+
+  @Output() joinCookbook = new EventEmitter();
 
   constructor(private router: Router) { }
 
@@ -18,5 +22,19 @@ export class ToolbarComponent implements OnInit {
 
   addCookbook() {
     this.router.navigate(['/cookbook/add']);
+  }
+
+  tojoinCookbook() {
+    this.joinCookbook.next();
+  }
+
+  ownCookbook() {
+    if (this.chef && this.chef.cookbooks) {
+      for (let i = 0; i < this.chef.cookbooks.length; i++){
+        if (this.chef.cookbooks[i].id === this.cookbook.id) {
+          return true;
+        }
+      }
+    }
   }
 }

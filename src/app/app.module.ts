@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {MatButtonModule} from "@angular/material/button";
-import {AllRecipesComponent} from './recipes/all-recipes/all-recipes.component';
+import {CookbookComponent} from './cookbook/cookbook/cookbook.component';
 import {AppRoutingModule} from "./app-routing.module";
 import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -31,7 +31,7 @@ import { ToolbarCheckComponent } from './shared/toolbar/toolbar-check/toolbar-ch
 @NgModule({
   declarations: [
     AppComponent,
-    AllRecipesComponent,
+    CookbookComponent,
     ToolbarComponent,
     AddRecipeComponent,
     AddCookbookComponent,

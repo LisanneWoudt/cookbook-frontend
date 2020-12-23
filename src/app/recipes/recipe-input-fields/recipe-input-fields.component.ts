@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Recipe} from "../../dto/recipe";
 import {RecipeService} from "../../shared/services/recipe.service";
 import {ImageService} from "../../shared/services/image.service";
 import {DataService} from "../../shared/services/data.service";
-import {FormControl, NgModel} from "@angular/forms";
+import {FormControl, NgForm, NgModel} from "@angular/forms";
 import {DialogWithCancelButtonComponent} from "../../shared/dialog/dialog-with-cancel-button/dialog-with-cancel-button.component";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
@@ -21,6 +21,8 @@ export class RecipeInputFieldsComponent implements OnInit {
   @Output() recipeSuccesfullySaved = new EventEmitter<string>();
   @Output() cancelEdit = new EventEmitter();
 
+  @ViewChild('recipeInputForm', {static: false}) recipeInputForm;
+
   imageFile: File;
   categories = new FormControl();
   categoryList: string[] = ['Dinner', 'Lunch', 'Breakfast', 'Healthy', 'Easy'];
@@ -31,13 +33,12 @@ export class RecipeInputFieldsComponent implements OnInit {
   ngOnInit() {
   }
 
-
   setEditDisabled(value: boolean) {
     this.editDisabled = value;
   }
 
-  saveRecipe(formValid: any) {
-    if (!formValid) {
+  saveRecipe() {
+    if (!this.recipeInputForm || !this.recipeInputForm.valid) {
       return;
     }
     if (this.categories.value) {
@@ -136,7 +137,7 @@ export class RecipeInputFieldsComponent implements OnInit {
   }
 
   goToHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/cookbook']);
   }
 
 }

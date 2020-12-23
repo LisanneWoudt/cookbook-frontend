@@ -1,6 +1,8 @@
-<app-toolbar-without-menu></app-toolbar-without-menu>
+<app-toolbar-without-menu
+  (goBack)="navigateToHome()">
+</app-toolbar-without-menu>
 
-<form #cookbookInputForm="ngForm" (ngSubmit)="addCookbook(cookbookInputForm.valid)" *ngIf="!loading" class="input-fields-container">
+<form #cookbookInputForm="ngForm" (ngSubmit)="addCookbook(cookbookInputForm.valid)" class="input-fields-container">
 
   <mat-form-field>
     <input name="brand" matInput placeholder="Name" [(ngModel)]="cookbook.name" #name="ngModel" maxlength="30" required/>

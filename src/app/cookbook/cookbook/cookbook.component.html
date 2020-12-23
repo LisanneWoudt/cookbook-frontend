@@ -1,4 +1,7 @@
-<app-toolbar [cookbookName]="cookbook.name"></app-toolbar>
+<app-toolbar [cookbook]="cookbook"
+             [chef]="chef"
+             (joinCookbook)="addCookbookToChef()">
+</app-toolbar>
 <div class="page">
   <div *ngIf="loading">
     <mat-progress-spinner
@@ -7,6 +10,10 @@
       mode="indeterminate">
     </mat-progress-spinner>
   </div>
+
+  <h4 class="text-center" *ngIf="recipes.length === 0">
+    No recipes found
+  </h4>
 
   <mat-list>
     <mat-list-item *ngFor="let recipe of recipes">
@@ -19,7 +26,7 @@
       <mat-divider></mat-divider>
     </mat-list-item>
   </mat-list>
-  <button mat-fab color="primary" class="floating-button-add" (click)="addRecipe()">
+  <button *ngIf="ownCookbook()" mat-fab color="primary" class="floating-button-add" (click)="addRecipe()">
     <mat-icon>add</mat-icon>
   </button>
 </div>

@@ -48,8 +48,23 @@ export class DataService {
   }
 
   getMockCookbook() {
-    this.cookbook = new Cookbook();
-    this.cookbook.id = 1;
-    return this.cookbook;
+    if (this.cookbook) {
+      return this.cookbook;
+    } else {
+      this.cookbook = new Cookbook();
+      this.cookbook.id = 1;
+      return this.cookbook;
+    }
+  }
+
+  isOwnCookbook() {
+    if (this.chef && this.chef.cookbooks) {
+      for (let i = 0; i < this.chef.cookbooks.length; i++) {
+        if (this.chef.cookbooks[i] && this.getCookbook() && this.chef.cookbooks[i].id === this.getCookbook().id) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Cookbook} from "../../dto/cookbook";
 import {CookbookService} from "../../shared/services/cookbook.service";
 import {DataService} from "../../shared/services/data.service";
@@ -6,7 +6,6 @@ import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogComponent} from "../../shared/dialog/dialog.component";
 import {ChefService} from "../../shared/services/chef.service";
-import {Chef} from "../../dto/chef";
 
 @Component({
   selector: 'app-add-cookbook',
@@ -24,7 +23,7 @@ export class AddCookbookComponent implements OnInit {
               private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.userId = this.dataService.getChef().id;
+    this.userId = this.dataService.getChefId();
   }
 
   addCookbook(formValid: any) {
@@ -67,7 +66,7 @@ export class AddCookbookComponent implements OnInit {
   }
 
   navigateToHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/cookbook']);
   }
 
 }

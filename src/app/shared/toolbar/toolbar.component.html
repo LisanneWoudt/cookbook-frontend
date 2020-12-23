@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>{{cookbookName}}</span>
+    <span>{{cookbook.name}}</span>
     <span class="toolbar-spacer"></span>
     <div>
       <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -9,7 +9,11 @@
       <mat-menu #menu="matMenu">
         <button (click)="addCookbook()" mat-menu-item>
           <mat-icon>menu_book</mat-icon>
-          <span>Add cookbook</span>
+          <span>Create cookbook</span>
+        </button>
+        <button *ngIf="!ownCookbook()" (click)="tojoinCookbook()" mat-menu-item>
+          <mat-icon>add</mat-icon>
+          <span>Join this cookbook</span>
         </button>
         <button mat-menu-item>
           <mat-icon>offline_bolt</mat-icon>

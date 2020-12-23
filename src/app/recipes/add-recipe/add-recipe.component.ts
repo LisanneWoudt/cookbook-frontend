@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {DialogWithCancelButtonComponent} from "../../shared/dialog/dialog-with-cancel-button/dialog-with-cancel-button.component";
 import {MatDialog} from "@angular/material/dialog";
@@ -12,6 +12,8 @@ export class AddRecipeComponent implements OnInit {
 
   recipeCreated = false;
   toolbarTitle = 'Create recipe';
+
+  @ViewChild('recipeInputFields', {static: true}) child;
 
   constructor(private router: Router, public dialog: MatDialog) { }
 
@@ -37,7 +39,7 @@ export class AddRecipeComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/cookbook']);
   }
 
 }

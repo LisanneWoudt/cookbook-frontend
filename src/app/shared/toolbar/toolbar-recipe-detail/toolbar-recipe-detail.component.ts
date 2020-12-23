@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {DataService} from "../../services/data.service";
 
 @Component({
   selector: 'app-toolbar-recipe-detail',
@@ -11,7 +12,7 @@ export class ToolbarRecipeDetailComponent implements OnInit {
   @Output() deleteRecipe = new EventEmitter();
   @Output() goBack = new EventEmitter();
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {}
 
@@ -25,6 +26,10 @@ export class ToolbarRecipeDetailComponent implements OnInit {
 
   toGoBack() {
     this.goBack.next();
+  }
+
+  ownCookbook() {
+    return this.dataService.isOwnCookbook();
   }
 
 }

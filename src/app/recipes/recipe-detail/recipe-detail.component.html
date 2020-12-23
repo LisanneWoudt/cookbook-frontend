@@ -5,7 +5,8 @@
 </app-toolbar-recipe-detail>
 
 <app-toolbar-check *ngIf="toolbarEditEnabled"
-  (goBack)="confirmCancel()">
+  (goBack)="confirmCancel()"
+  (saveRecipe)="saveRecipe()">
 </app-toolbar-check>
 
 <app-recipe-input-fields
