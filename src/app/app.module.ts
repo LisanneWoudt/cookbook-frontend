@@ -27,6 +27,10 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { ToolbarRecipeDetailComponent } from './shared/toolbar/toolbar-recipe-detail/toolbar-recipe-detail.component';
 import { DialogWithCancelButtonComponent } from './shared/dialog/dialog-with-cancel-button/dialog-with-cancel-button.component';
 import { ToolbarCheckComponent } from './shared/toolbar/toolbar-check/toolbar-check.component';
+import { SearchChefComponent } from './chef/search-chef/search-chef.component';
+import {SearchFilterPipe} from "./shared/pipes/search-filter.pipe";
+import { ChefComponent } from './chef/chef/chef.component';
+import { AllRecipesComponent } from './recipes/all-recipes/all-recipes.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,11 @@ import { ToolbarCheckComponent } from './shared/toolbar/toolbar-check/toolbar-ch
     RecipeDetailComponent,
     ToolbarRecipeDetailComponent,
     DialogWithCancelButtonComponent,
-    ToolbarCheckComponent
+    ToolbarCheckComponent,
+    SearchChefComponent,
+    SearchFilterPipe,
+    ChefComponent,
+    AllRecipesComponent
   ],
     imports: [
         BrowserModule,

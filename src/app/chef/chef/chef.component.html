@@ -1,0 +1,13 @@
+<app-toolbar-without-menu
+  (goBack)="navigateBack()"
+  [title]="chefName">
+</app-toolbar-without-menu>
+
+<mat-list>
+  <mat-list-item *ngFor="let cookbook of chef.cookbooks" (click)="goToCookbook(cookbook.id)">
+    <mat-icon matListIcon>menu_book</mat-icon>
+    <h3 matLine> {{cookbook.name}} </h3>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+</mat-list>
+

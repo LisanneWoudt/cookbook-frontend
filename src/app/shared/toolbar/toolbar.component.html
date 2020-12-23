@@ -11,9 +11,13 @@
           <mat-icon>menu_book</mat-icon>
           <span>Create cookbook</span>
         </button>
+        <button (click)="toSearchChefs()" mat-menu-item>
+          <mat-icon>person</mat-icon>
+          <span>Search chef</span>
+        </button>
         <button *ngIf="!ownCookbook()" (click)="tojoinCookbook()" mat-menu-item>
           <mat-icon>add</mat-icon>
-          <span>Join this cookbook</span>
+          <span>Request to join this cookbook</span>
         </button>
         <button mat-menu-item>
           <mat-icon>offline_bolt</mat-icon>

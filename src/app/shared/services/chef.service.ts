@@ -14,8 +14,8 @@ export class ChefService {
 
   constructor(private http: HttpClient) { }
 
-  addChef(chef: Chef): Observable<Chef> {
-    return this.http.post<Chef>(environment.host + this.baseUrl + 'add', chef);
+  getAllChefs(): Observable<Chef[]> {
+    return this.http.get<Chef[]>(environment.host + this.baseUrl + 'all');
   }
 
   getChef(id: number): Observable<Chef> {

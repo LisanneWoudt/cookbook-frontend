@@ -15,17 +15,10 @@
     No recipes found
   </h4>
 
-  <mat-list>
-    <mat-list-item *ngFor="let recipe of recipes">
-      <img *ngIf="recipe.image" matListAvatar [src]="recipe.image">
-      <img *ngIf="!recipe.image" matListAvatar src="assets/img/no-image.png" alt="...">
-      <h3 matLine (click)="toRecipeDetail(recipe.id)"> {{recipe.title}} </h3>
-      <p matLine>
-        <span> {{recipe.description}} </span>
-      </p>
-      <mat-divider></mat-divider>
-    </mat-list-item>
-  </mat-list>
+  <app-all-recipes
+    [recipes]="recipes"
+    [cookbookId]="cookbook.id">
+  </app-all-recipes>
   <button *ngIf="ownCookbook()" mat-fab color="primary" class="floating-button-add" (click)="addRecipe()">
     <mat-icon>add</mat-icon>
   </button>

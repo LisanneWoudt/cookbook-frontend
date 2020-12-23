@@ -13,7 +13,7 @@ import {DialogComponent} from "../../shared/dialog/dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({
-  selector: 'app-all-recipes',
+  selector: 'app-cookbook',
   templateUrl: './cookbook.component.html',
   styleUrls: ['./cookbook.component.css', '../../app.component.css']
 })
@@ -129,7 +129,4 @@ export class CookbookComponent implements OnInit {
     return this.dataService.isOwnCookbook();
   }
 
-  toRecipeDetail(recipeId: number) {
-    this.router.navigate(['/recipes/' + this.cookbook.id + '/' + recipeId]);
-  }
 }

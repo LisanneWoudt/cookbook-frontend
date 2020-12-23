@@ -28,6 +28,10 @@ export class ToolbarComponent implements OnInit {
     this.joinCookbook.next();
   }
 
+  toSearchChefs() {
+    this.router.navigate(['/chefs/search']);
+  }
+
   ownCookbook() {
     if (this.chef && this.chef.cookbooks) {
       for (let i = 0; i < this.chef.cookbooks.length; i++){
