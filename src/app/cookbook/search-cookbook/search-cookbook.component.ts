@@ -6,12 +6,13 @@ import {DataService} from "../../shared/services/data.service";
 
 @Component({
   selector: 'app-search-chef',
-  templateUrl: './search-chef.component.html',
-  styleUrls: ['./search-chef.component.css']
+  templateUrl: './search-cookbook.component.html',
+  styleUrls: ['./search-cookbook.component.css']
 })
-export class SearchChefComponent implements OnInit {
+export class SearchCookbookComponent implements OnInit {
 
-  query: string;
+  chefQuery: string;
+  cookbookQuery: string;
   chefs: Chef[];
 
   constructor(private chefService: ChefService, private dataService: DataService, private router: Router) { }
@@ -24,10 +25,11 @@ export class SearchChefComponent implements OnInit {
     this.chefService.getAllChefs().subscribe(result => {
       this.chefs = result.filter(chef => chef.id !== this.dataService.getChefId());
     })
+
   }
 
-  navigateToChef(chefId: number) {
-    this.router.navigate(['/chefs/' + chefId])
+  navigateToCookbook(chefId: number) {
+    this.router.navigate(['/cookbooks/' + chefId])
   }
 
   navigateBack() {

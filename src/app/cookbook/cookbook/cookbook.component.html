@@ -1,7 +1,14 @@
-<app-toolbar [cookbook]="cookbook"
-             [chef]="chef"
-             (joinCookbook)="addCookbookToChef()">
-</app-toolbar>
+<app-toolbar-cookbook *ngIf="ownCookbook()"
+             [cookbook]="cookbook"
+             [chef]="chef">
+</app-toolbar-cookbook>
+
+<app-toolbar-cookbook-other-chef *ngIf="!ownCookbook()"
+                      [cookbook]="cookbook"
+                      [chef]="chef"
+                      (joinCookbook)="requestToJoinCookbook()">
+</app-toolbar-cookbook-other-chef>
+
 <div class="page">
   <div *ngIf="loading">
     <mat-progress-spinner

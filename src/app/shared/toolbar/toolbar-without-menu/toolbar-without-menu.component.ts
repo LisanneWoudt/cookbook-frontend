@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 @Component({
   selector: 'app-toolbar-without-menu',
   templateUrl: './toolbar-without-menu.component.html',
-  styleUrls: ['./toolbar-without-menu.component.css']
+  styleUrls: ['./toolbar-without-menu.component.css', '../../../app.component.css']
 })
 export class ToolbarWithoutMenuComponent implements OnInit {
 

@@ -1,0 +1,40 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>{{cookbook.name}}</span>
+    <span class="toolbar-spacer"></span>
+    <div>
+
+      <button mat-icon-button [matMenuTriggerFor]="cookbookList">
+        <mat-icon>menu_book</mat-icon>
+      </button>
+      <mat-menu #cookbookList="matMenu">
+        <div *ngFor="let cookbook of chef.cookbooks" (click)="goToCookbook(cookbook.id)">
+          <button mat-menu-item>{{cookbook.name}}</button>
+        </div>
+      </mat-menu>
+
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button (click)="addCookbook()" mat-menu-item>
+          <mat-icon>menu_book</mat-icon>
+          <span>Create cookbook</span>
+        </button>
+        <button mat-menu-item (click)="toJoinRequests()">
+          <mat-icon matBadge="{{requestCount}}" matBadgePosition="above after" matBadgeColor="accent">message</mat-icon>
+          <span>Join requests</span>
+        </button>
+        <button (click)="toSearchChefs()" mat-menu-item>
+          <mat-icon>search</mat-icon>
+          <span>Search cookbook</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>offline_bolt</mat-icon>
+          <span>Log out</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+

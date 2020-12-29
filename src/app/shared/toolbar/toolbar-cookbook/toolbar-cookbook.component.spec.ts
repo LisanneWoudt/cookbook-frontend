@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SearchChefComponent } from './search-chef.component';
+import { ToolbarCookbookComponent } from './toolbar-cookbook.component';
 
-describe('SearchChefComponent', () => {
-  let component: SearchChefComponent;
-  let fixture: ComponentFixture<SearchChefComponent>;
+describe('ToolbarCookbookComponent', () => {
+  let component: ToolbarCookbookComponent;
+  let fixture: ComponentFixture<ToolbarCookbookComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchChefComponent ]
+      declarations: [ ToolbarCookbookComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchChefComponent);
+    fixture = TestBed.createComponent(ToolbarCookbookComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

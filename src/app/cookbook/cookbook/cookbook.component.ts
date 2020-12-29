@@ -11,6 +11,8 @@ import {DomSanitizer} from "@angular/platform-browser";
 import {ImageHelper} from "../../shared/helper/image.helper";
 import {DialogComponent} from "../../shared/dialog/dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {JoinCookbookRequestService} from "../../shared/services/join-cookbook-request.service";
+import {JoinCookbookRequest} from "../../dto/join-cookbook-request";
 
 @Component({
   selector: 'app-cookbook',
@@ -30,7 +32,7 @@ export class CookbookComponent implements OnInit {
               private cookbookService: CookbookService, private imageService: ImageService,
               private router: Router, private route: ActivatedRoute,
               private sanitizer: DomSanitizer, private imageHelper: ImageHelper,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog, private joinCookbookRequestService: JoinCookbookRequestService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -51,7 +53,6 @@ export class CookbookComponent implements OnInit {
   }
 
   getCookbookByChef() {
-
     this.chefService.getChef(this.dataService.getChefId()).subscribe(result => {
       this.dataService.setChef(result);
       this.chef = result;
@@ -107,11 +108,21 @@ export class CookbookComponent implements OnInit {
     this.router.navigate(['/recipes/add']);
   }
 
-  addCookbookToChef() {
-    this.chefService.addCookbookToChef(this.chef.id, this.cookbook.id).subscribe(result => {
-      this.openDialog('Cookbook joined', 'You have succesfully joined this cookbook');
+  requestToJoinCookbook() {
+    const request = new JoinCookbookRequest();
+    request.chefId = this.chef.id;
+    request.cookbookId = this.cookbook.id;
+    request.status = 'NEW';
+    this.joinCookbookRequestService.addRequest(request).subscribe(() => {
+      this.openDialog('Request send', 'Request to join this cookbook has been send');
     });
   }
+
+  // addCookbookToChef() {
+  //   this.chefService.addCookbookToChef(this.chef.id, this.cookbook.id).subscribe(result => {
+  //     this.openDialog('Cookbook joined', 'You have succesfully joined this cookbook');
+  //   });
+  // }
 
   openDialog(title: string, message: string): void {
     const dialogRef = this.dialog.open(DialogComponent, {
