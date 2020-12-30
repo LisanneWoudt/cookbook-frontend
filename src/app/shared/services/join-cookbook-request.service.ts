@@ -13,12 +13,12 @@ export class JoinCookbookRequestService {
 
   constructor(private http: HttpClient) { }
 
-  addRequest(request: JoinCookbookRequest): Observable<JoinCookbookRequest> {
+  saveRequest(request: JoinCookbookRequest): Observable<JoinCookbookRequest> {
     return this.http.post<JoinCookbookRequest>(environment.host + this.baseUrl + 'save', request);
   }
 
-  checkRequestSent(chefId: number, cookbookId: number): Observable<boolean> {
-    return this.http.get<boolean>(environment.host + this.baseUrl + 'check?chefId=' + chefId + '&cookbookId=' + cookbookId);
+  checkRequestSent(chefId: number, cookbookId: number): Observable<JoinCookbookRequest> {
+    return this.http.get<JoinCookbookRequest>(environment.host + this.baseUrl + 'check?chefId=' + chefId + '&cookbookId=' + cookbookId);
   }
 
   getRequestCount(chefId: number): Observable<number> {

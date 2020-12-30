@@ -21,7 +21,7 @@ import {JoinCookbookRequest} from "../../dto/join-cookbook-request";
 })
 export class CookbookComponent implements OnInit {
 
-  recipes: Recipe[];
+  recipes: Recipe[] = [];
   chef: Chef;
   cookbook: Cookbook;
   loading: boolean = true;
@@ -57,7 +57,18 @@ export class CookbookComponent implements OnInit {
       this.dataService.setChef(result);
       this.chef = result;
 
-      this.getCookbookByChefId(result.id);
+      if (result.cookbooks.length === 0) {
+        this.cookbook = new Cookbook();
+        this.loading = false;
+      } else {
+        if (result.cookbooks.length > 1) {
+          this.cookbook = result.cookbooks.find(cookbook => cookbook.id === this.chef.lastSelectedCookbookId);
+        } else {
+          this.cookbook = result.cookbooks[0];
+        }
+        this.getRecipes(this.cookbook.id);
+      }
+      this.dataService.setCookbook(this.cookbook);
     });
   }
 
@@ -67,18 +78,6 @@ export class CookbookComponent implements OnInit {
       this.dataService.setCookbook(result);
       this.getRecipes(result.id);
     });
-  }
-
-  getCookbookByChefId(chefId: number) {
-    this.cookbookService.getCookbookByChefId(chefId).subscribe(result => {
-      if (result.length > 1) {
-        this.cookbook = result.find(cookbook => cookbook.id === this.chef.lastSelectedCookbookId);
-      } else {
-        this.cookbook = result[0];
-      }
-      this.dataService.setCookbook(this.cookbook);
-      this.getRecipes(this.cookbook.id);
-    })
   }
 
   getRecipes(cookbookId: number) {
@@ -113,16 +112,10 @@ export class CookbookComponent implements OnInit {
     request.chefId = this.chef.id;
     request.cookbookId = this.cookbook.id;
     request.status = 'NEW';
-    this.joinCookbookRequestService.addRequest(request).subscribe(() => {
+    this.joinCookbookRequestService.saveRequest(request).subscribe(() => {
       this.openDialog('Request send', 'Request to join this cookbook has been send');
     });
   }
-
-  // addCookbookToChef() {
-  //   this.chefService.addCookbookToChef(this.chef.id, this.cookbook.id).subscribe(result => {
-  //     this.openDialog('Cookbook joined', 'You have succesfully joined this cookbook');
-  //   });
-  // }
 
   openDialog(title: string, message: string): void {
     const dialogRef = this.dialog.open(DialogComponent, {
@@ -133,7 +126,6 @@ export class CookbookComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       window.location.reload()
     });
-
   }
 
   ownCookbook() {

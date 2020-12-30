@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {Chef} from "../../dto/chef";
 import {Cookbook} from "../../dto/cookbook";
-import {ChefService} from "./chef.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,7 @@ export class DataService {
   chefId: number;
   cookbook: Cookbook;
 
-  constructor(private chefService: ChefService) { }
+  constructor() { }
 
   getChefId() {
     if (!environment.production) {
@@ -59,6 +58,9 @@ export class DataService {
 
   isOwnCookbook() {
     if (this.chef && this.chef.cookbooks) {
+      if (this.chef.cookbooks.length === 0) { // chef without cookbooks
+        return true;
+      }
       for (let i = 0; i < this.chef.cookbooks.length; i++) {
         if (this.chef.cookbooks[i] && this.getCookbook() && this.chef.cookbooks[i].id === this.getCookbook().id) {
           return true;

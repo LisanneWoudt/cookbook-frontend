@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Recipe} from "../../dto/recipe";
 import {Router} from "@angular/router";
+import {Cookbook} from "../../dto/cookbook";
 
 @Component({
   selector: 'app-all-recipes',
@@ -10,7 +11,7 @@ import {Router} from "@angular/router";
 export class AllRecipesComponent implements OnInit {
 
   @Input() recipes: Recipe[];
-  @Input() cookbookId: number;
+  @Input() cookbook: Cookbook;
 
   constructor(private router: Router) { }
 
@@ -18,6 +19,6 @@ export class AllRecipesComponent implements OnInit {
   }
 
   toRecipeDetail(recipeId: number) {
-    this.router.navigate(['/recipes/' + this.cookbookId + '/' + recipeId]);
+    this.router.navigate(['/recipes/' + this.cookbook.id + '/' + recipeId]);
   }
 }

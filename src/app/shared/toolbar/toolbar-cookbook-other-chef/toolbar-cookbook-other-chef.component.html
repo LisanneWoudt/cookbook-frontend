@@ -18,15 +18,13 @@
         <mat-icon>menu</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button *ngIf="!joinRequestSent" (click)="tojoinCookbook()" mat-menu-item>
+        <button *ngIf="!requestSent" (click)="tojoinCookbook()" mat-menu-item>
           <mat-icon>add</mat-icon>
           <span>Request to join cookbook</span>
         </button>
-      </mat-menu>
-      <mat-menu #menu="matMenu">
-        <button *ngIf="joinRequestSent" mat-menu-item>
-          <mat-icon>check</mat-icon>
-          <span>Join request pending</span>
+        <button *ngIf="requestSent" mat-menu-item>
+          <mat-icon>{{ requestStatus === 'NEW' ? 'check' : 'clear' }}</mat-icon>
+          <span>{{ requestStatus === 'NEW' ? 'Join request pending' : 'Join request rejected'}}</span>
         </button>
       </mat-menu>
     </div>

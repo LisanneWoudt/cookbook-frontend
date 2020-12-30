@@ -25,4 +25,8 @@ export class RecipeService {
     return this.http.delete<Recipe>(environment.host + this.baseUrl + id);
   }
 
+  getRecipeCategories(cookbookId: number): Observable<String[]> {
+    return this.http.get<String[]>(environment.host + this.baseUrl + 'categories?cookbookId=' + cookbookId);
+  }
+
 }

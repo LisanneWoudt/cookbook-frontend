@@ -25,12 +25,29 @@ export class RecipeInputFieldsComponent implements OnInit {
 
   imageFile: File;
   categories = new FormControl();
-  categoryList: string[] = ['Dinner', 'Lunch', 'Breakfast', 'Healthy', 'Easy'];
+  categoryList: String[] = ['Dinner', 'Lunch', 'Breakfast', 'Healthy', 'Easy'];
+  categoryListLowerCase: String[] = [];
+  addingCategory: boolean;
 
   constructor(private recipeService: RecipeService, private imageService: ImageService,
               private dataService: DataService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.getCustomCategories();
+  }
+
+  getCustomCategories() {
+    for (let i = 0; i < this.categoryList.length; i++) {
+      this.categoryListLowerCase.push(this.categoryList[i].toLowerCase());
+    }
+    this.recipeService.getRecipeCategories(this.dataService.getCookbook().id).subscribe(result => {
+      for (let i = 0; i < result.length; i++) {
+        if (!this.categoryListLowerCase.includes(result[i].toLowerCase())) {
+          this.categoryList.push(result[i]);
+          this.categoryListLowerCase.push(result[i].toLowerCase())
+        }
+      }
+    })
   }
 
   setEditDisabled(value: boolean) {
@@ -75,20 +92,24 @@ export class RecipeInputFieldsComponent implements OnInit {
 
   //TODO: Choice to save recipe
   confirmCancelRecipe() {
-    const dialogRef = this.dialog.open(DialogWithCancelButtonComponent, {
-      width: '250px',
-      data: {title : 'Cancel', message: 'Are you sure you want to cancel? Your recipe will not be saved.'}
-    });
+    if (this.addingCategory) { // Go back to recipe, chef cancels adding a category
+      this.addingCategory = false;
+    } else {
+      const dialogRef = this.dialog.open(DialogWithCancelButtonComponent, {
+        width: '250px',
+        data: {title : 'Cancel', message: 'Are you sure you want to cancel? Your recipe will not be saved.'}
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
-        if (this.recipe.id === null) {
-          this.goToHome()
-        } else {
-          this.toCancelEdit();
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === true) {
+          if (this.recipe.id === null) {
+            this.goToHome()
+          } else {
+            this.toCancelEdit();
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   uploadImage(recipeId: string) {
@@ -128,6 +149,24 @@ export class RecipeInputFieldsComponent implements OnInit {
 
   toCancelEdit() {
     this.cancelEdit.next();
+  }
+
+  toggleAddingCategory() {
+    this.addingCategory = this.addingCategory !== true;
+  }
+
+  getAddingCategory() {
+    return this.addingCategory;
+  }
+
+  addCategory(category: string) {
+    this.categoryList.push(category);
+    if (!this.categories.value) {
+      this.categories.setValue([category]);
+    } else {
+      this.categories.value.push(category);
+    }
+    this.addingCategory = false;
   }
 
   goToLink() {

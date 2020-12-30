@@ -3,6 +3,8 @@ import {Cookbook} from "../../../dto/cookbook";
 import {Chef} from "../../../dto/chef";
 import {Router} from "@angular/router";
 import {JoinCookbookRequestService} from "../../services/join-cookbook-request.service";
+import {ChefService} from "../../services/chef.service";
+import {DataService} from "../../services/data.service";
 
 @Component({
   selector: 'app-toolbar-cookbook',
@@ -18,7 +20,8 @@ export class ToolbarCookbookComponent implements OnInit {
 
   requestCount: number = 0;
 
-  constructor(private router: Router, private joinCookbookRequestService: JoinCookbookRequestService) { }
+  constructor(private router: Router, private joinCookbookRequestService: JoinCookbookRequestService,
+              private chefService: ChefService, private dataService: DataService) { }
 
   ngOnInit() {
     this.getRequestCount();
@@ -37,11 +40,14 @@ export class ToolbarCookbookComponent implements OnInit {
   }
 
   goToCookbook(cookbookId: number) {
+    this.chef.lastSelectedCookbookId = cookbookId;
+    this.chefService.setLastSelectedCookbookId(this.chef).subscribe(result => {
+      this.dataService.setChef(result);
+    });
     this.router.navigate(['/cookbooks/' + cookbookId]);
   }
 
   getRequestCount() {
-    console.log(this.chef.id);
     this.joinCookbookRequestService.getRequestCount(this.chef.id).subscribe(result => {
       this.requestCount = result;
     })

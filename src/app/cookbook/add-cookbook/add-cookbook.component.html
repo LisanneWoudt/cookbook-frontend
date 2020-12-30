@@ -5,7 +5,7 @@
 <form #cookbookInputForm="ngForm" (ngSubmit)="addCookbook(cookbookInputForm.valid)" class="input-fields-container">
 
   <mat-form-field>
-    <input name="brand" matInput placeholder="Name" [(ngModel)]="cookbook.name" #name="ngModel" maxlength="30" required/>
+    <input name="brand" matInput placeholder="Name" [(ngModel)]="cookbook.name" #name="ngModel" maxlength="20" required/>
     <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger"></div>
   </mat-form-field>
 

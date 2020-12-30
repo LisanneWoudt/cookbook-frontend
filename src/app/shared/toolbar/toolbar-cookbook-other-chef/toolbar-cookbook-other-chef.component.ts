@@ -16,8 +16,8 @@ export class ToolbarCookbookOtherChefComponent implements OnInit {
 
   @Output() joinCookbook = new EventEmitter();
 
-  joinRequestSent: boolean;
-
+  requestSent = false;
+  requestStatus: string;
 
   constructor(private router: Router, private joinCookbookRequestService: JoinCookbookRequestService) { }
 
@@ -35,7 +35,10 @@ export class ToolbarCookbookOtherChefComponent implements OnInit {
 
   hasSentJoinRequest() {
     this.joinCookbookRequestService.checkRequestSent(this.chef.id, this.cookbook.id).subscribe(result => {
-      this.joinRequestSent = result;
+      if (result) {
+        this.requestSent = true;
+        this.requestStatus = result.status;
+      }
     })
   }
 

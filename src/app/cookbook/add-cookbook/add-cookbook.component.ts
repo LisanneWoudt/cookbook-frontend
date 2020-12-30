@@ -44,13 +44,14 @@ export class AddCookbookComponent implements OnInit {
     chef.lastSelectedCookbookId = newCookbook.id;
     this.dataService.setChef(chef);
 
-    this.chefService.setLastSelectedCookbookId(chef).subscribe(result => {
-      this.dataService.setChef(result);
-
+    this.chefService.addCookbookToChef(chef.id, newCookbook.id).subscribe(() => {
       this.openDialog('Cookbook created',
         'You have created cookbook "' + this.cookbook.name + '"!');
     });
 
+    this.chefService.setLastSelectedCookbookId(chef).subscribe(result => {
+      this.dataService.setChef(result);
+    });
   }
 
   openDialog(title: string, message: string): void {

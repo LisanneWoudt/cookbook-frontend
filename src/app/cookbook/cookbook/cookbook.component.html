@@ -18,13 +18,17 @@
     </mat-progress-spinner>
   </div>
 
-  <h4 class="text-center" *ngIf="recipes.length === 0">
+  <h4 class="text-center" *ngIf="chef.cookbooks.length !== 0 && recipes.length === 0 && !loading" >
     No recipes found
   </h4>
 
+  <span class="text-center" *ngIf="chef.cookbooks.length === 0 && !loading" >
+    You don't have any cookbooks yet. Start by creating one or joining an existing cookbook.
+  </span>
+
   <app-all-recipes
     [recipes]="recipes"
-    [cookbookId]="cookbook.id">
+    [cookbook]="cookbook">
   </app-all-recipes>
   <button *ngIf="ownCookbook()" mat-fab color="primary" class="floating-button-add" (click)="addRecipe()">
     <mat-icon>add</mat-icon>
