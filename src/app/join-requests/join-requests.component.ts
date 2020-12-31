@@ -58,7 +58,7 @@ export class JoinRequestsComponent implements OnInit {
 
   getChefName(request: JoinCookbookRequest) {
     this.chefService.getChef(request.chefId).subscribe(result => {
-      request.chefName = result.name;
+      request.chefName = result.username;
     })
   }
 

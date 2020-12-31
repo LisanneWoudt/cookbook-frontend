@@ -25,7 +25,7 @@ export class ChefComponent implements OnInit {
   getChef(chefId: number) {
     this.chefService.getChef(chefId).subscribe(result => {
       this.chef = result;
-      this.chefName = result.name;
+      this.chefName = result.username;
     })
   }
 

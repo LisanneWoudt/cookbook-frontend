@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {DataService} from "../../shared/services/data.service";
 import {Cookbook} from "../../dto/cookbook";
 import {CookbookService} from "../../shared/services/cookbook.service";
@@ -13,6 +13,7 @@ import {DialogComponent} from "../../shared/dialog/dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {JoinCookbookRequestService} from "../../shared/services/join-cookbook-request.service";
 import {JoinCookbookRequest} from "../../dto/join-cookbook-request";
+import {SESSION_STORAGE, WebStorageService} from "ngx-webstorage-service";
 
 @Component({
   selector: 'app-cookbook',
@@ -32,7 +33,8 @@ export class CookbookComponent implements OnInit {
               private cookbookService: CookbookService, private imageService: ImageService,
               private router: Router, private route: ActivatedRoute,
               private sanitizer: DomSanitizer, private imageHelper: ImageHelper,
-              public dialog: MatDialog, private joinCookbookRequestService: JoinCookbookRequestService) { }
+              public dialog: MatDialog, private joinCookbookRequestService: JoinCookbookRequestService,
+              @Inject(SESSION_STORAGE) private storage: WebStorageService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -132,4 +134,10 @@ export class CookbookComponent implements OnInit {
     return this.dataService.isOwnCookbook();
   }
 
+  logout() {
+    this.dataService.setChef(new Chef());
+    this.storage.set('loggedIn', false);
+    this.storage.set('userId', undefined);
+    this.router.navigate(['login']);
+  }
 }

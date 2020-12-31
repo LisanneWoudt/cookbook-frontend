@@ -35,6 +35,7 @@ import {ToolbarCookbookOtherChefComponent} from './shared/toolbar/toolbar-cookbo
 import {MatBadgeModule} from "@angular/material/badge";
 import {JoinRequestsComponent} from './join-requests/join-requests.component';
 import { AddCategoryComponent } from './recipes/add-category/add-category.component';
+import { LoginComponent } from './chef/login/login.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { AddCategoryComponent } from './recipes/add-category/add-category.compon
     ToolbarCookbookComponent,
     ToolbarCookbookOtherChefComponent,
     JoinRequestsComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    LoginComponent
   ],
     imports: [
         BrowserModule,

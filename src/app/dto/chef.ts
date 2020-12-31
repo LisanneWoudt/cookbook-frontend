@@ -2,7 +2,11 @@ import {Cookbook} from "./cookbook";
 
 export class Chef {
   id: number;
-  name: string;
+  username: string;
+  email: string;
+  password: string;
   lastSelectedCookbookId: number;
+  emailNotifications: boolean;
+  passwordReset: boolean;
   cookbooks: Cookbook[];
 }

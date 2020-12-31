@@ -22,7 +22,7 @@
           <mat-option [disabled]="editDisabled" *ngFor="let category of categoryList" [value]="category">{{category}}</mat-option>
         </mat-select>
       </mat-form-field>
-      <button class="add-category-button" mat-icon-button color="primary" (click)="toggleAddingCategory()">
+      <button *ngIf="!editDisabled" class="add-category-button" mat-icon-button color="primary" (click)="toggleAddingCategory()">
         <mat-icon>add</mat-icon>
       </button>
     </div>

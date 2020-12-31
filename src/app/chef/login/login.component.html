@@ -1,0 +1,88 @@
+<div class="page">
+  <div *ngIf="loading" class="spinner-center">
+    <mat-progress-spinner
+      class="spinner"
+      color="primary"
+      mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+
+  <form #loginForm="ngForm" *ngIf="isLoggingIn && !loading" (ngSubmit)="login(loginForm.valid)"
+        class="input-fields-container">
+
+    <mat-form-field>
+      <input type="email" matInput placeholder="Email" [(ngModel)]="chef.email" name="email"
+             #email="ngModel" required/>
+      <div *ngIf="email.invalid && (email.dirty || email.touched)"
+           class="alert alert-danger">
+      </div>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="password" matInput placeholder="Password" [(ngModel)]="chef.password" name="password"
+             #password="ngModel" required/>
+      <div *ngIf="password.invalid && (password.dirty || password.touched)"
+           class="alert alert-danger">
+      </div>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit">Login</button>
+    <button mat-button color="primary" (click)="toggleDisplay()">Sign up</button>
+
+    <button class="password-reset" mat-button color="primary" (click)="navigateToPasswordReset()">
+      Forgot your password?
+    </button>
+  </form>
+
+  <form #registerForm="ngForm" *ngIf="!isLoggingIn && !loading" (ngSubmit)="signUp(registerForm.valid)"
+        class="input-fields-container">
+
+    <mat-form-field>
+      <input matInput placeholder="Name of chef" [(ngModel)]="chef.username" name="name"
+             #name="ngModel" required pattern="^[a-zA-Z0-9_-\s]{1,35}$" maxlength="35"/>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)"
+           class="alert alert-danger">
+      </div>
+      <div *ngIf="name.errors?.pattern && (name.dirty || name.touched)" class="error-form-field">
+        Name can not contain any special characters
+      </div>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="email" matInput placeholder="Email" [(ngModel)]="chef.email" name="email"
+             #email="ngModel" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="40"/>
+      <div *ngIf="email.invalid && (email.dirty || email.touched)"
+           class="alert alert-danger">
+      </div>
+      <div *ngIf="email.errors?.pattern && (email.dirty || email.touched)" class="error-form-field">
+        Email not valid
+      </div>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="password" matInput placeholder="Password" [(ngModel)]="chef.password" name="password"
+             #password="ngModel" required pattern="^[a-zA-Z0-9_\\d!$%@#£€*?&.-]{7,30}$" maxlength="30" minlength="7"/>
+      <div *ngIf="password.invalid && (password.dirty || password.touched)"
+           class="alert alert-danger">
+      </div>
+      <div *ngIf="password.errors?.pattern && (password.dirty || password.touched)" class="error-form-field">
+        Password has a minimal length of 7 characters
+      </div>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="password" matInput placeholder="Repeat password" [(ngModel)]="passwordRepeat" name="passwordCopy"
+             #passwordCopy="ngModel" required pattern="^[a-zA-Z0-9_\\d!$%@#£€*?&.-]{7,30}$" maxlength="30" minlength="7"/>
+      <div *ngIf="(passwordCopy.invalid && (passwordCopy.dirty || passwordCopy.touched)) || passwordsUnequal"
+           class="alert alert-danger">
+      </div>
+      <div *ngIf="passwordsUnequal" class="error-form-field">
+        Passwords are unequal
+      </div>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit">Sign up</button>
+    <button mat-button color="primary" (click)="toggleDisplay()">Back to login</button>
+
+  </form>
+</div>

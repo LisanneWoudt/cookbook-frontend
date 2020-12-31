@@ -7,9 +7,11 @@ import {RecipeDetailComponent} from "./recipes/recipe-detail/recipe-detail.compo
 import {SearchCookbookComponent} from "./cookbook/search-cookbook/search-cookbook.component";
 import {ChefComponent} from "./chef/chef/chef.component";
 import {JoinRequestsComponent} from "./join-requests/join-requests.component";
+import {LoginComponent} from "./chef/login/login.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/cookbook', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent},
   { path: 'cookbook', component: CookbookComponent},
   { path: 'cookbooks/:id', component: CookbookComponent},
   { path: 'cookbook/add', component: AddCookbookComponent},

@@ -3,7 +3,7 @@
   <mat-form-field>
     <input name="brand" matInput placeholder="Name" [(ngModel)]="category"
            pattern="^[a-zA-Z0-9_-]{1,25}$" maxlength="25" required/>
-    <div *ngIf="existingCategory" class="error-category-exists">Category already exists</div>
+    <div *ngIf="existingCategory" class="error-form-field">Category already exists</div>
   </mat-form-field>
 
   <button mat-flat-button color="primary" type="submit">
