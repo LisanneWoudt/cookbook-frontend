@@ -24,8 +24,11 @@ export class SearchCookbookComponent implements OnInit {
   getAllChefs() {
     this.chefService.getAllChefs().subscribe(result => {
       this.chefs = result.filter(chef => chef.id !== this.dataService.getChefId());
-    })
+    });
+  }
 
+  hasJoinedCookbook(cookbookId: number) {
+    return this.dataService.getChef().cookbooks.find(cookbook => cookbook.id === cookbookId);
   }
 
   navigateToCookbook(chefId: number) {

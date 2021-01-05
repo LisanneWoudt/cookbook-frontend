@@ -22,15 +22,24 @@
   </div>
 
   <mat-list>
-    <div *ngFor="let chef of chefs | search:'name':chefQuery">
-      <mat-list-item *ngFor="let cookbook of chef.cookbooks |  search:'name':cookbookQuery"
+    <div *ngFor="let chef of chefs | search:'username':chefQuery">
+      <div *ngFor="let cookbook of chef.cookbooks |  search:'name':cookbookQuery"
                      (click)="navigateToCookbook(cookbook.id)">
-        <h3 matLine class="inbox-sender"><b> {{cookbook.name}} </b></h3>
-        <div matLine>
-          <span>{{chef.name}}</span>
-        </div>
-        <mat-divider></mat-divider>
-      </mat-list-item>
+
+        <mat-list-item *ngIf="cookbook.creatorId === chef.id">
+          <h3 matLine class="inbox-sender">
+            <b> {{cookbook.name}} </b>
+            <mat-icon *ngIf="hasJoinedCookbook(cookbook.id)" color="warn" matTooltip="You already joined this cookbook">
+              check
+            </mat-icon>
+          </h3>
+          <div matLine>
+            <span>{{chef.username}}</span>
+          </div>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+
+      </div>
     </div>
   </mat-list>
 </div>

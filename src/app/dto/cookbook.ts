@@ -3,7 +3,6 @@ import {Recipe} from "./recipe";
 export class Cookbook {
   id: number;
   name: string;
-  description: string;
-  chefId: number;
+  creatorId: number;
   recipes: Recipe[];
 }

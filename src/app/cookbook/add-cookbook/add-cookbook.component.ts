@@ -30,7 +30,7 @@ export class AddCookbookComponent implements OnInit {
     if (!formValid) {
       return;
     }
-    this.cookbook.chefId = this.userId;
+    this.cookbook.creatorId = this.userId;
 
     this.cookbookService.addCookbook(this.cookbook).subscribe(result => {
       this.responseSuccess(result);

@@ -36,6 +36,7 @@ import {MatBadgeModule} from "@angular/material/badge";
 import {JoinRequestsComponent} from './join-requests/join-requests.component';
 import { AddCategoryComponent } from './recipes/add-category/add-category.component';
 import { LoginComponent } from './chef/login/login.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { LoginComponent } from './chef/login/login.component';
         MatSelectModule,
         MatProgressSpinnerModule,
         ReactiveFormsModule,
-        MatBadgeModule
+        MatBadgeModule,
+        MatTooltipModule
     ],
   providers: [],
   bootstrap: [AppComponent],
