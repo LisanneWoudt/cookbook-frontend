@@ -23,7 +23,7 @@ export class SearchCookbookComponent implements OnInit {
 
   getAllChefs() {
     this.chefService.getAllChefs().subscribe(result => {
-      this.chefs = result.filter(chef => chef.id !== this.dataService.getChefId());
+      this.chefs = result.filter(chef => chef.id !== this.dataService.getChef().id);
     });
   }
 

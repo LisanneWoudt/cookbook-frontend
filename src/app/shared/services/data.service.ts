@@ -1,7 +1,9 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {Chef} from "../../dto/chef";
 import {Cookbook} from "../../dto/cookbook";
+import {SESSION_STORAGE, WebStorageService} from "ngx-webstorage-service";
+import {ChefService} from "./chef.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,25 +11,32 @@ import {Cookbook} from "../../dto/cookbook";
 export class DataService {
 
   chef: Chef;
-  chefId: number;
   cookbook: Cookbook;
 
-  constructor() { }
+  constructor(private chefService: ChefService, @Inject(SESSION_STORAGE) private storage: WebStorageService) { }
 
-  getChefId() {
-    if (!environment.production) {
-      return this.getMockChefId();
-    } else {
-        return this.chefId;
-    }
-  }
-
-  getMockChefId() {
-    return 5;
+  getMockChef() {
+    const chef = new Chef();
+    chef.id = 5;
+    chef.cookbooks = [];
+    return chef;
   }
 
   getChef() {
-    return this.chef;
+    if (!this.chef && !environment.production) {
+      return this.getMockChef();
+    } else {
+      if (this.chef === undefined && this.storage.get('loggedIn') === true) {
+        this.chefService.getChef(this.storage.get('userId')).subscribe(data => {
+          if (data != null) {
+            this.setChef(data);
+            return data;
+          }
+        });
+      } else {
+        return this.chef;
+      }
+    }
   }
 
   setChef(chef: Chef) {

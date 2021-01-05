@@ -23,7 +23,7 @@ export class AddCookbookComponent implements OnInit {
               private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.userId = this.dataService.getChefId();
+    this.userId = this.dataService.getChef().id;
   }
 
   addCookbook(formValid: any) {

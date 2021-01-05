@@ -37,6 +37,7 @@ import {JoinRequestsComponent} from './join-requests/join-requests.component';
 import { AddCategoryComponent } from './recipes/add-category/add-category.component';
 import { LoginComponent } from './chef/login/login.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {HttpCustomClient} from "./shared/services/http-custom-client";
 
 @NgModule({
   declarations: [
@@ -81,7 +82,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
         MatBadgeModule,
         MatTooltipModule
     ],
-  providers: [],
+  providers: [HttpCustomClient],
   bootstrap: [AppComponent],
   entryComponents: [
     DialogComponent,

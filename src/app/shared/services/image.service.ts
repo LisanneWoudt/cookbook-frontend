@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
+import {HttpCustomClient} from "./http-custom-client";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class ImageService {
 
   baseUrl = 'images/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpCustomClient) { }
 
   uploadImage(filename: string, file: File): Observable<any> {
     const formData = new FormData();
@@ -28,8 +28,7 @@ export class ImageService {
   }
 
   getWithResponseTypeBlob(url) {
-    const headers = new HttpHeaders();
-    return this.http.get(url, {responseType: 'blob', headers});
+    return this.http.getWithResponseTypeBlob(url);
   }
 
 }

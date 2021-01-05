@@ -41,7 +41,7 @@ export class JoinRequestsComponent implements OnInit {
   }
 
   getRequests() {
-    this.joinCookbookRequestService.getRequestsByChefId(this.dataService.getChefId()).subscribe(result => {
+    this.joinCookbookRequestService.getRequestsByChefId(this.dataService.getChef().id).subscribe(result => {
       this.requests = result;
       for(let i=0; i < this.requests.length; i++){
         this.getCookbookName(this.requests[i]);

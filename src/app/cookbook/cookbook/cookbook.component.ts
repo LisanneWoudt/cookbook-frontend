@@ -48,14 +48,14 @@ export class CookbookComponent implements OnInit {
   }
 
   getChef() {
-    this.chefService.getChef(this.dataService.getChefId()).subscribe(result => {
+    this.chefService.getChef(this.dataService.getChef().id).subscribe(result => {
       this.dataService.setChef(result);
       this.chef = result;
     });
   }
 
   getCookbookByChef() {
-    this.chefService.getChef(this.dataService.getChefId()).subscribe(result => {
+    this.chefService.getChef(this.dataService.getChef().id).subscribe(result => {
       this.dataService.setChef(result);
       this.chef = result;
 
@@ -113,8 +113,11 @@ export class CookbookComponent implements OnInit {
     const request = new JoinCookbookRequest();
     request.chefId = this.chef.id;
     request.cookbookId = this.cookbook.id;
+    request.cookbookName = this.cookbook.name;
     request.status = 'NEW';
+    this.loading = true;
     this.joinCookbookRequestService.saveRequest(request).subscribe(() => {
+      this.loading = false;
       this.openDialog('Request send', 'Request to join this cookbook has been send');
     });
   }
