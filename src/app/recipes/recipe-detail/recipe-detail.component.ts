@@ -4,13 +4,14 @@ import {Recipe} from "../../dto/recipe";
 import {RecipeService} from "../../shared/services/recipe.service";
 import {ImageHelper} from "../../shared/helper/image.helper";
 import {EstimatedTime} from "../../dto/estimated-time";
+import {MyErrorHandler} from "../../shared/error/my-error-handler";
 
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.css']
 })
-export class RecipeDetailComponent implements OnInit, AfterViewInit {
+export class RecipeDetailComponent extends MyErrorHandler implements OnInit, AfterViewInit {
 
   sub: any;
   recipe: Recipe;
@@ -21,7 +22,9 @@ export class RecipeDetailComponent implements OnInit, AfterViewInit {
   @ViewChild('recipeInputFields', {static: false}) child;
 
   constructor(private route: ActivatedRoute, private recipeService: RecipeService,
-              private imageHelper: ImageHelper, private router: Router) { }
+              private imageHelper: ImageHelper, private router: Router) {
+    super();
+  }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {

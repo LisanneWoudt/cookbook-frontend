@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ChefService} from "../../shared/services/chef.service";
 import {Chef} from "../../dto/chef";
@@ -26,7 +26,7 @@ export class ChefComponent implements OnInit {
     this.chefService.getChef(chefId).subscribe(result => {
       this.chef = result;
       this.chefName = result.username;
-    })
+    });
   }
 
   goToCookbook(cookbookId: number) {

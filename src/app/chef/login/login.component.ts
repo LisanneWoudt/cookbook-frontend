@@ -7,13 +7,14 @@ import {DialogComponent} from "../../shared/dialog/dialog.component";
 import {SESSION_STORAGE, WebStorageService} from "ngx-webstorage-service";
 import {LoginService} from "../../shared/services/login.service";
 import {ChefService} from "../../shared/services/chef.service";
+import {MyErrorHandler} from "../../shared/error/my-error-handler";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css', '../../app.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends MyErrorHandler implements OnInit {
 
   chef = new Chef();
   isLoggingIn = true;
@@ -23,7 +24,9 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private loginService: LoginService, private chefService: ChefService,
               private dataService: DataService, public dialog: MatDialog,
-              @Inject(SESSION_STORAGE) private storage: WebStorageService) { }
+              @Inject(SESSION_STORAGE) private storage: WebStorageService) {
+    super();
+  }
 
   ngOnInit() {
     if (this.storage.get('loggedIn') === true) {

@@ -14,13 +14,14 @@ import {MatDialog} from "@angular/material/dialog";
 import {JoinCookbookRequestService} from "../../shared/services/join-cookbook-request.service";
 import {JoinCookbookRequest} from "../../dto/join-cookbook-request";
 import {SESSION_STORAGE, WebStorageService} from "ngx-webstorage-service";
+import {MyErrorHandler} from "../../shared/error/my-error-handler";
 
 @Component({
   selector: 'app-cookbook',
   templateUrl: './cookbook.component.html',
   styleUrls: ['./cookbook.component.css', '../../app.component.css']
 })
-export class CookbookComponent implements OnInit {
+export class CookbookComponent extends MyErrorHandler implements OnInit {
 
   recipes: Recipe[] = [];
   chef: Chef;
@@ -34,7 +35,9 @@ export class CookbookComponent implements OnInit {
               private router: Router, private route: ActivatedRoute,
               private sanitizer: DomSanitizer, private imageHelper: ImageHelper,
               public dialog: MatDialog, private joinCookbookRequestService: JoinCookbookRequestService,
-              @Inject(SESSION_STORAGE) private storage: WebStorageService) { }
+              @Inject(SESSION_STORAGE) private storage: WebStorageService) {
+    super();
+  }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -51,6 +54,8 @@ export class CookbookComponent implements OnInit {
     this.chefService.getChef(this.dataService.getChef().id).subscribe(result => {
       this.dataService.setChef(result);
       this.chef = result;
+    }, error => {
+      super.handleError(error, this.router, this.dataService);
     });
   }
 
@@ -71,6 +76,8 @@ export class CookbookComponent implements OnInit {
         this.getRecipes(this.cookbook.id);
       }
       this.dataService.setCookbook(this.cookbook);
+    }, error => {
+      super.handleError(error, this.router, this.dataService);
     });
   }
 
@@ -79,6 +86,8 @@ export class CookbookComponent implements OnInit {
       this.cookbook = result;
       this.dataService.setCookbook(result);
       this.getRecipes(result.id);
+    }, error => {
+      super.handleError(error, this.router, this.dataService);
     });
   }
 
@@ -86,6 +95,8 @@ export class CookbookComponent implements OnInit {
     this.cookbookService.getCookbook(cookbookId).subscribe(result => {
       this.recipes = result.recipes;
       this.getRecipeImages(result.recipes);
+    }, error => {
+      super.handleError(error, this.router, this.dataService);
     });
   }
 

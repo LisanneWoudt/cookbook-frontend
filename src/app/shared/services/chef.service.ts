@@ -30,6 +30,6 @@ export class ChefService {
   }
 
   addCookbookToChef(chefId: number, cookbookId: number): Observable<Chef> {
-    return this.http.get(environment.host + this.baseUrl + 'add-cookbook?chefId=' + chefId + '&cookbookId=' + cookbookId);
+    return this.http.get(environment.host + this.baseUrl + 'add-cookbook?id=' + chefId + '&cookbookId=' + cookbookId);
   }
 }

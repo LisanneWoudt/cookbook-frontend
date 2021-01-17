@@ -7,13 +7,14 @@ import {FormControl, NgForm, NgModel} from "@angular/forms";
 import {DialogWithCancelButtonComponent} from "../../shared/dialog/dialog-with-cancel-button/dialog-with-cancel-button.component";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
+import {MyErrorHandler} from "../../shared/error/my-error-handler";
 
 @Component({
   selector: 'app-recipe-input-fields',
   templateUrl: './recipe-input-fields.component.html',
   styleUrls: ['./recipe-input-fields.component.css', '../../app.component.css']
 })
-export class RecipeInputFieldsComponent implements OnInit {
+export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit {
 
   @Input() recipe: Recipe = new Recipe();
   @Input() loading: boolean = true;
@@ -30,7 +31,9 @@ export class RecipeInputFieldsComponent implements OnInit {
   addingCategory: boolean;
 
   constructor(private recipeService: RecipeService, private imageService: ImageService,
-              private dataService: DataService, private router: Router, public dialog: MatDialog) { }
+              private dataService: DataService, private router: Router, public dialog: MatDialog) {
+    super();
+  }
 
   ngOnInit() {
     this.getCustomCategories();

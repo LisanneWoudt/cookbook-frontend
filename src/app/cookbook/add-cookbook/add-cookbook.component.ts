@@ -6,13 +6,14 @@ import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogComponent} from "../../shared/dialog/dialog.component";
 import {ChefService} from "../../shared/services/chef.service";
+import {MyErrorHandler} from "../../shared/error/my-error-handler";
 
 @Component({
   selector: 'app-add-cookbook',
   templateUrl: './add-cookbook.component.html',
   styleUrls: ['./add-cookbook.component.css']
 })
-export class AddCookbookComponent implements OnInit {
+export class AddCookbookComponent extends MyErrorHandler implements OnInit {
 
   cookbook: Cookbook = new Cookbook();
   loading: boolean;
@@ -20,7 +21,9 @@ export class AddCookbookComponent implements OnInit {
 
   constructor(private cookbookService: CookbookService, private dataService: DataService,
               private chefService: ChefService,
-              private router: Router, public dialog: MatDialog) { }
+              private router: Router, public dialog: MatDialog) {
+    super();
+  }
 
   ngOnInit() {
     this.userId = this.dataService.getChef().id;
@@ -34,7 +37,9 @@ export class AddCookbookComponent implements OnInit {
 
     this.cookbookService.addCookbook(this.cookbook).subscribe(result => {
       this.responseSuccess(result);
-    })
+    }, error => {
+      super.handleError(error, this.router, this.dataService);
+    });
   }
 
   responseSuccess(newCookbook: Cookbook) {

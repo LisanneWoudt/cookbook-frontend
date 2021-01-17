@@ -8,13 +8,14 @@ import {Cookbook} from "../dto/cookbook";
 import {ChefService} from "../shared/services/chef.service";
 import {DialogWithCancelButtonComponent} from "../shared/dialog/dialog-with-cancel-button/dialog-with-cancel-button.component";
 import {MatDialog} from "@angular/material/dialog";
+import {MyErrorHandler} from "../shared/error/my-error-handler";
 
 @Component({
   selector: 'app-join-requests',
   templateUrl: './join-requests.component.html',
   styleUrls: ['./join-requests.component.css', '../app.component.css']
 })
-export class JoinRequestsComponent implements OnInit {
+export class JoinRequestsComponent extends MyErrorHandler implements OnInit {
 
   sub: any;
   cookbookId: number;
@@ -23,7 +24,9 @@ export class JoinRequestsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog,
               private joinCookbookRequestService: JoinCookbookRequestService, private dataService: DataService,
-              private cookbookService: CookbookService, private chefService: ChefService) { }
+              private cookbookService: CookbookService, private chefService: ChefService) {
+    super();
+  }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {

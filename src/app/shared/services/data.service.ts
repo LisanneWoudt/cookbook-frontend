@@ -4,6 +4,7 @@ import {Chef} from "../../dto/chef";
 import {Cookbook} from "../../dto/cookbook";
 import {SESSION_STORAGE, WebStorageService} from "ngx-webstorage-service";
 import {ChefService} from "./chef.service";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class DataService {
 
   chef: Chef;
   cookbook: Cookbook;
+  error: Error;
 
   constructor(private chefService: ChefService, @Inject(SESSION_STORAGE) private storage: WebStorageService) { }
 
@@ -24,7 +26,7 @@ export class DataService {
 
   getChef() {
     if (!this.chef && !environment.production) {
-      return this.getMockChef();
+        return this.getMockChef();
     } else {
       if (this.chef === undefined && this.storage.get('loggedIn') === true) {
         this.chefService.getChef(this.storage.get('userId')).subscribe(data => {
@@ -44,7 +46,7 @@ export class DataService {
   }
 
   getCookbook() {
-    if (!environment.production) {
+    if (!this.cookbook && !environment.production) {
       return this.getMockCookbook();
     } else {
       return this.cookbook;
@@ -68,7 +70,7 @@ export class DataService {
   isOwnCookbook() {
     if (this.chef && this.chef.cookbooks) {
       if (this.chef.cookbooks.length === 0) { // chef without cookbooks
-        return true;
+        return this.getCookbook().id === undefined;
       }
       for (let i = 0; i < this.chef.cookbooks.length; i++) {
         if (this.chef.cookbooks[i] && this.getCookbook() && this.chef.cookbooks[i].id === this.getCookbook().id) {
@@ -78,4 +80,9 @@ export class DataService {
     }
     return false;
   }
+
+  setError(error: Error) {
+    this.error = error;
+  }
+
 }

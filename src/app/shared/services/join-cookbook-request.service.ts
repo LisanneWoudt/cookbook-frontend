@@ -18,14 +18,14 @@ export class JoinCookbookRequestService {
   }
 
   checkRequestSent(chefId: number, cookbookId: number): Observable<JoinCookbookRequest> {
-    return this.http.get(environment.host + this.baseUrl + 'check?chefId=' + chefId + '&cookbookId=' + cookbookId);
+    return this.http.get(environment.host + this.baseUrl + 'check?id=' + chefId + '&cookbookId=' + cookbookId);
   }
 
   getRequestCount(chefId: number): Observable<number> {
-    return this.http.get(environment.host + this.baseUrl + 'count?chefId=' + chefId);
+    return this.http.get(environment.host + this.baseUrl + 'count?id=' + chefId);
   }
 
   getRequestsByChefId(chefId: number): Observable<JoinCookbookRequest[]> {
-    return this.http.get(environment.host + this.baseUrl + 'by-chefId?chefId=' + chefId);
+    return this.http.get(environment.host + this.baseUrl + 'by-chefId?id=' + chefId);
   }
 }
