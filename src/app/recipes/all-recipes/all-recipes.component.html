@@ -1,11 +1,49 @@
-<mat-list>
-  <mat-list-item *ngFor="let recipe of recipes">
-    <img *ngIf="recipe.image" matListAvatar [src]="recipe.image">
-    <img *ngIf="!recipe.image" matListAvatar src="assets/img/no-image.png" alt="...">
-    <h3 matLine (click)="toRecipeDetail(recipe.id)"> {{recipe.title}} </h3>
-    <p matLine>
-      <span> {{recipe.description}} </span>
-    </p>
-    <mat-divider></mat-divider>
-  </mat-list-item>
-</mat-list>
+<mat-tab-group mat-stretch-tabs (selectedTabChange)="getRecipeIdsPerCategory(cookbook.id)" selectedIndex=0>
+
+  <mat-tab label="All recipes">
+    <mat-list>
+      <mat-list-item *ngFor="let recipe of recipes">
+        <img *ngIf="recipe.image" matListAvatar [src]="recipe.image">
+        <img *ngIf="!recipe.image" matListAvatar src="assets/img/no-image.png" alt="...">
+        <h3 matLine (click)="toRecipeDetail(recipe.id)"> {{recipe.title}} </h3>
+        <p matLine>
+          <span> {{recipe.description}} </span>
+        </p>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </mat-tab>
+
+  <mat-tab label="Categories">
+
+    <mat-list *ngIf="!showSelectedCategory" role="list">
+      <mat-list-item *ngFor="let category of categories">
+        <mat-icon class="icon-with-spacing" (click)="showCategoryList()">list_alt</mat-icon>
+        <div (click)="selectCategory(category)">
+          {{category}} ({{categoryMap[category].length}})
+        </div>
+      </mat-list-item>
+    </mat-list>
+
+    <mat-list *ngIf="showSelectedCategory">
+      <mat-toolbar class="smaller-font">
+        <mat-toolbar-row>
+          <mat-icon class="icon-with-spacing" (click)="showCategoryList()">arrow_back</mat-icon>
+          {{ categoryLabel}}
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <mat-list-item *ngFor="let recipe of filteredRecipes">
+        <img *ngIf="recipe.image" matListAvatar [src]="recipe.image">
+        <img *ngIf="!recipe.image" matListAvatar src="assets/img/no-image.png" alt="...">
+        <h3 matLine (click)="toRecipeDetail(recipe.id)"> {{recipe.title}} </h3>
+        <p matLine>
+          <span> {{recipe.description}} </span>
+        </p>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+
+  </mat-tab>
+</mat-tab-group>
+
+

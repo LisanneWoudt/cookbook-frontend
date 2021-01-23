@@ -29,4 +29,8 @@ export class RecipeService {
     return this.http.get(environment.host + this.baseUrl + 'categories?cookbookId=' + cookbookId);
   }
 
+  getRecipeIdsPerCategory(cookbookId: number): Observable<Map<String, number[]>> {
+    return this.http.get(environment.host + this.baseUrl + 'ids-per-category?cookbookId=' + cookbookId);
+  }
+
 }

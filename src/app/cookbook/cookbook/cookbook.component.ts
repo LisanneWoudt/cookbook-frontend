@@ -148,6 +148,16 @@ export class CookbookComponent extends MyErrorHandler implements OnInit {
     return this.dataService.isOwnCookbook();
   }
 
+  goToCookbook(cookbookId: any) {
+    if (this.router.url.endsWith('/cookbooks/' + cookbookId)) {
+      this.router.navigate(['/cookbooks/' + cookbookId]);
+    } else if (this.router.url.includes('/cookbooks/')) {
+      window.location.reload();
+    } else {
+      this.router.navigate(['/cookbooks/' + cookbookId]);
+    }
+  }
+
   logout() {
     this.dataService.setChef(new Chef());
     this.storage.set('loggedIn', false);

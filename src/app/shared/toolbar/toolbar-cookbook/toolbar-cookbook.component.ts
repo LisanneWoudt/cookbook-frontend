@@ -18,6 +18,7 @@ export class ToolbarCookbookComponent implements OnInit {
 
   @Output() joinCookbook = new EventEmitter();
   @Output() logout = new EventEmitter();
+  @Output() toCookbook = new EventEmitter<number>();
 
   requestCount: number = 0;
 
@@ -45,7 +46,7 @@ export class ToolbarCookbookComponent implements OnInit {
     this.chefService.setLastSelectedCookbookId(this.chef).subscribe(result => {
       this.dataService.setChef(result);
     });
-    this.router.navigate(['/cookbooks/' + cookbookId]);
+    this.toCookbook.next(cookbookId);
   }
 
   getRequestCount() {

@@ -1,6 +1,7 @@
 <app-toolbar-cookbook *ngIf="ownCookbook()"
              [cookbook]="cookbook"
              [chef]="chef"
+             (toCookbook)="goToCookbook($event)"
              (logout)="logout()">
 </app-toolbar-cookbook>
 
@@ -20,15 +21,15 @@
   </div>
 
   <div *ngIf="!loading">
-    <h4 class="text-center" *ngIf="chef.cookbooks.length !== 0 && recipes.length === 0 && !loading" >
+    <h4 class="text-center" *ngIf="chef.cookbooks.length !== 0 && recipes.length === 0" >
       No recipes found
     </h4>
 
-    <span class="text-center" *ngIf="chef.cookbooks.length === 0 && ownCookbook() && !loading" >
+    <span class="text-center" *ngIf="chef.cookbooks.length === 0 && ownCookbook()" >
     You don't have any cookbooks yet. Start by creating one or joining an existing cookbook.
   </span>
 
-    <app-all-recipes
+    <app-all-recipes *ngIf="recipes.length !== 0"
       [recipes]="recipes"
       [cookbook]="cookbook">
     </app-all-recipes>

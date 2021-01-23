@@ -34,10 +34,11 @@ import {ToolbarCookbookComponent} from './shared/toolbar/toolbar-cookbook/toolba
 import {ToolbarCookbookOtherChefComponent} from './shared/toolbar/toolbar-cookbook-other-chef/toolbar-cookbook-other-chef.component';
 import {MatBadgeModule} from "@angular/material/badge";
 import {JoinRequestsComponent} from './join-requests/join-requests.component';
-import { AddCategoryComponent } from './recipes/add-category/add-category.component';
-import { LoginComponent } from './chef/login/login.component';
+import {AddCategoryComponent} from './recipes/add-category/add-category.component';
+import {LoginComponent} from './chef/login/login.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {HttpCustomClient} from "./shared/services/http-custom-client";
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -62,26 +63,27 @@ import {HttpCustomClient} from "./shared/services/http-custom-client";
     AddCategoryComponent,
     LoginComponent
   ],
-    imports: [
-        BrowserModule,
-        MatButtonModule,
-        AppRoutingModule,
-        MatToolbarModule,
-        HttpClientModule,
-        MatIconModule,
-        MatMenuModule,
-        BrowserAnimationsModule,
-        MatFormFieldModule,
-        FormsModule,
-        MatInputModule,
-        MatDialogModule,
-        MatListModule,
-        MatSelectModule,
-        MatProgressSpinnerModule,
-        ReactiveFormsModule,
-        MatBadgeModule,
-        MatTooltipModule
-    ],
+  imports: [
+    BrowserModule,
+    MatButtonModule,
+    AppRoutingModule,
+    MatToolbarModule,
+    HttpClientModule,
+    MatIconModule,
+    MatMenuModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
+    MatDialogModule,
+    MatListModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    MatBadgeModule,
+    MatTooltipModule,
+    MatTabsModule
+  ],
   providers: [HttpCustomClient],
   bootstrap: [AppComponent],
   entryComponents: [
