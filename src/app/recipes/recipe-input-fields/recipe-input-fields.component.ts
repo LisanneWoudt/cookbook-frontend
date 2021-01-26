@@ -26,7 +26,7 @@ export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit
 
   imageFile: File;
   categories = new FormControl();
-  categoryList: String[] = ['Dinner', 'Lunch', 'Breakfast', 'Healthy', 'Easy'];
+  categoryList: String[] = ['Dinner', 'Lunch', 'Breakfast'];
   categoryListLowerCase: String[] = [];
   addingCategory: boolean;
 
@@ -50,6 +50,7 @@ export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit
           this.categoryListLowerCase.push(result[i].toLowerCase())
         }
       }
+      this.categoryList.sort();
     })
   }
 

@@ -1,6 +1,6 @@
 <mat-tab-group mat-stretch-tabs (selectedTabChange)="getRecipeIdsPerCategory(cookbook.id)" selectedIndex=0>
 
-  <mat-tab label="All recipes">
+  <mat-tab label="Recipes">
     <mat-list>
       <mat-list-item *ngFor="let recipe of recipes">
         <img *ngIf="recipe.image" matListAvatar [src]="recipe.image">

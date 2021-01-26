@@ -1,13 +1,38 @@
 <app-toolbar-without-menu
-  (goBack)="navigateBack()"
+  (goBack)="goBack()"
   [title]="chefName">
 </app-toolbar-without-menu>
 
-<mat-list>
-  <mat-list-item *ngFor="let cookbook of chef.cookbooks" (click)="goToCookbook(cookbook.id)">
-    <mat-icon matListIcon>menu_book</mat-icon>
-    <h3 matLine> {{cookbook.name}} </h3>
-    <mat-divider></mat-divider>
-  </mat-list-item>
-</mat-list>
+
+<div class="page">
+  <div *ngIf="loading">
+    <mat-progress-spinner
+      class="spinner"
+      color="primary"
+      mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+
+  <div *ngIf="!loading">
+    <div class="cookbook-title">
+     <b>Your cookbooks</b>
+    </div>
+    <mat-list class="cookbook-list">
+      <mat-list-item *ngFor="let cookbook of chef.cookbooks" (click)="goToCookbook(cookbook.id)">
+        <mat-icon color="accent">fiber_manual_record</mat-icon><button mat-button>{{cookbook.name}}</button>
+      </mat-list-item>
+    </mat-list>
+
+    <h4>Email notifications</h4>
+    <div>
+      <mat-slide-toggle labelPosition="after" class="slider" (change)="toggleReceiveEmails()" [checked]="chef.emailNotifications">
+        <span class="slider-text">{{chef.emailNotifications ? 'On' : 'Off'}}</span>
+      </mat-slide-toggle>
+    </div>
+  </div>
+
+</div>
+
+
+
 

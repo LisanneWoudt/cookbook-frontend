@@ -21,12 +21,12 @@ export class ChefService {
     return this.http.get(environment.host + this.baseUrl + id);
   }
 
-  getMinimalChef(id: number): Observable<Chef> {
-    return this.http.get(environment.host + this.baseUrl + 'minimal/' + id);
-  }
-
   setLastSelectedCookbookId(chef: Chef): Observable<Chef> {
     return this.http.put(environment.host + this.baseUrl + 'set-cookbook-id', chef);
+  }
+
+  setEmailNotifications(chef: Chef): Observable<void> {
+    return this.http.put(environment.host + this.baseUrl + 'set-email-notifications', chef);
   }
 
   addCookbookToChef(chefId: number, cookbookId: number): Observable<Chef> {

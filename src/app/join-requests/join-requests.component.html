@@ -4,7 +4,7 @@
 
 <div class="page">
   <div *ngFor="let request of requests" class="requests-block">
-    Request from Chef {{request.chefName}} to join cookbook <b> {{request.cookbookName}} </b>
+    Request from Chef <b>{{request.chefName}}</b> to join cookbook <b> {{request.cookbookName}} </b>
     <div>
       <button mat-icon-button color="primary" (click)="confirm(request, true)">
         <mat-icon>check</mat-icon>

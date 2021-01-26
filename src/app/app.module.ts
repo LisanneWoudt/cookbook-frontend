@@ -39,6 +39,7 @@ import {LoginComponent} from './chef/login/login.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {HttpCustomClient} from "./shared/services/http-custom-client";
 import {MatTabsModule} from "@angular/material/tabs";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import {MatTabsModule} from "@angular/material/tabs";
     ReactiveFormsModule,
     MatBadgeModule,
     MatTooltipModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSlideToggleModule
   ],
   providers: [HttpCustomClient],
   bootstrap: [AppComponent],

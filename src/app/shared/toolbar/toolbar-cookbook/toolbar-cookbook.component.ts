@@ -41,6 +41,10 @@ export class ToolbarCookbookComponent implements OnInit {
     this.router.navigate(['/requests']);
   }
 
+  toProfile() {
+    this.router.navigate(['/chefs/' + this.dataService.getChef().id])
+  }
+
   goToCookbook(cookbookId: number) {
     this.chef.lastSelectedCookbookId = cookbookId;
     this.chefService.setLastSelectedCookbookId(this.chef).subscribe(result => {
