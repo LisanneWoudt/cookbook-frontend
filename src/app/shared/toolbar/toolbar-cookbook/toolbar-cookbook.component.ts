@@ -21,12 +21,14 @@ export class ToolbarCookbookComponent implements OnInit {
   @Output() toCookbook = new EventEmitter<number>();
 
   requestCount: number = 0;
+  cookbooks = [];
 
   constructor(private router: Router, private joinCookbookRequestService: JoinCookbookRequestService,
               private chefService: ChefService, private dataService: DataService) { }
 
   ngOnInit() {
     this.getRequestCount();
+    this.getCookbooks();
   }
 
   addCookbook() {
@@ -53,8 +55,14 @@ export class ToolbarCookbookComponent implements OnInit {
     this.toCookbook.next(cookbookId);
   }
 
+  getCookbooks() {
+    this.chefService.getChef(this.dataService.getChef().id).subscribe(result => {
+      this.cookbooks = result.cookbooks;
+    });
+  }
+
   getRequestCount() {
-    this.joinCookbookRequestService.getRequestCount(this.chef.id).subscribe(result => {
+    this.joinCookbookRequestService.getRequestCount(this.dataService.getChef().id).subscribe(result => {
       this.requestCount = result;
     })
   }

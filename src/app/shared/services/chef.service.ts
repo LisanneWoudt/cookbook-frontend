@@ -21,6 +21,10 @@ export class ChefService {
     return this.http.get(environment.host + this.baseUrl + id);
   }
 
+  updateChef(chef: Chef): Observable<Chef> {
+    return this.http.put(environment.host + this.baseUrl + 'update', chef);
+}
+
   setLastSelectedCookbookId(chef: Chef): Observable<Chef> {
     return this.http.put(environment.host + this.baseUrl + 'set-cookbook-id', chef);
   }
@@ -31,5 +35,9 @@ export class ChefService {
 
   addCookbookToChef(chefId: number, cookbookId: number): Observable<Chef> {
     return this.http.get(environment.host + this.baseUrl + 'add-cookbook?id=' + chefId + '&cookbookId=' + cookbookId);
+  }
+
+  resetPassword(chef: Chef): Observable<void> {
+    return this.http.post(environment.host + this.baseUrl + 'reset-password', chef);
   }
 }

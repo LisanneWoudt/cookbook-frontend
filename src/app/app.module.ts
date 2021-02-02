@@ -40,6 +40,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {HttpCustomClient} from "./shared/services/http-custom-client";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { ResetPasswordComponent } from './chef/reset-password/reset-password.component';
+import { ChangePasswordComponent } from './chef/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     ToolbarCookbookOtherChefComponent,
     JoinRequestsComponent,
     AddCategoryComponent,
-    LoginComponent
+    LoginComponent,
+    ResetPasswordComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

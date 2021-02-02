@@ -9,7 +9,7 @@
         <mat-icon>menu_book</mat-icon>
       </button>
       <mat-menu #cookbookList="matMenu">
-        <div *ngFor="let cookbook of chef.cookbooks" (click)="goToCookbook(cookbook.id)">
+        <div *ngFor="let cookbook of chef?.cookbooks" (click)="goToCookbook(cookbook.id)">
           <button mat-menu-item>{{cookbook.name}}</button>
         </div>
       </mat-menu>
@@ -23,7 +23,9 @@
           <span>Request to join cookbook</span>
         </button>
         <button *ngIf="requestSent" mat-menu-item>
-          <mat-icon>{{ requestStatus === 'NEW' ? 'check' : 'clear' }}</mat-icon>
+          <mat-icon color="{{requestStatus === 'NEW' ? 'accent' : 'warning'}}">
+            {{ requestStatus === 'NEW' ? 'check' : 'clear' }}
+          </mat-icon>
           <span>{{ requestStatus === 'NEW' ? 'Join request pending' : 'Join request rejected'}}</span>
         </button>
       </mat-menu>

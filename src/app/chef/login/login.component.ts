@@ -58,7 +58,13 @@ export class LoginComponent extends MyErrorHandler implements OnInit {
       this.storage.set('loggedIn', true);
       this.storage.set('userId', data.id);
       this.storage.set('access_token', data.token);
-      this.loginSucces(data);
+
+      this.chefService.getChef(data.id).subscribe(chef => {
+        this.loginSucces(chef);
+      }, error => {
+        console.error(error);
+      });
+
     }, error => {
       this.loading = false;
       this.openDialog('Login failed', 'Email or password incorrect');
@@ -135,7 +141,7 @@ export class LoginComponent extends MyErrorHandler implements OnInit {
   }
 
   navigateToPasswordChange() {
-    this.router.navigate(['/change-password/false']);
+    this.router.navigate(['/change-password']);
   }
 
 }

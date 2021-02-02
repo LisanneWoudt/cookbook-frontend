@@ -7,7 +7,7 @@
     </mat-progress-spinner>
   </div>
 
-  <form #recipeInputForm="ngForm" (ngSubmit)="saveRecipe(recipeInputForm)" *ngIf="!loading && !addingCategory" class="input-fields-container">
+  <form #recipeInputForm="ngForm" (ngSubmit)="saveRecipe()" *ngIf="!loading && !addingCategory" class="input-fields-container">
 
     <mat-form-field class="input-disabled">
       <input class="input-disabled" name="brand" matInput placeholder="Name" [(ngModel)]="recipe.title" #name="ngModel"

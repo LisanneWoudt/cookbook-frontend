@@ -8,9 +8,11 @@ import {SearchCookbookComponent} from "./cookbook/search-cookbook/search-cookboo
 import {ChefComponent} from "./chef/chef/chef.component";
 import {JoinRequestsComponent} from "./join-requests/join-requests.component";
 import {LoginComponent} from "./chef/login/login.component";
+import {ResetPasswordComponent} from "./chef/reset-password/reset-password.component";
+import {ChangePasswordComponent} from "./chef/change-password/change-password.component";
 
 const routes: Routes = [
-  { path: '', redirectTo: '/cookbook', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
   { path: 'cookbook', component: CookbookComponent},
   { path: 'cookbooks/:id', component: CookbookComponent},
@@ -19,7 +21,9 @@ const routes: Routes = [
   { path: 'recipes/add', component: AddRecipeComponent, data: {title: 'Create recipe'}},
   { path: 'recipes/:cookbookId/:id', component: RecipeDetailComponent, data: {title: 'Recipe details'}},
   { path: 'chefs/:id', component: ChefComponent},
-  { path: 'requests', component: JoinRequestsComponent}
+  { path: 'requests', component: JoinRequestsComponent},
+  { path: 'reset-password', component: ResetPasswordComponent},
+  { path: 'change-password', component: ChangePasswordComponent}
 ];
 
 

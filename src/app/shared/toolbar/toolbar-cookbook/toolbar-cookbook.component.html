@@ -1,14 +1,14 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>{{cookbook.name ? cookbook.name.slice(0, 20) : 'Hi chef!'}}</span>
+    <span>{{cookbook?.name ? cookbook?.name.slice(0, 20) : 'Hi chef!'}}</span>
     <span class="toolbar-spacer"></span>
     <div>
 
-      <button mat-icon-button [matMenuTriggerFor]="cookbookList" *ngIf="chef.cookbooks.length !== 0">
+      <button mat-icon-button [matMenuTriggerFor]="cookbookList" *ngIf="cookbooks?.length !== 0">
         <mat-icon>menu_book</mat-icon>
       </button>
       <mat-menu #cookbookList="matMenu">
-        <div *ngFor="let cookbook of chef.cookbooks" (click)="goToCookbook(cookbook.id)">
+        <div *ngFor="let cookbook of cookbooks" (click)="goToCookbook(cookbook.id)">
           <button mat-menu-item>{{cookbook.name}}</button>
         </div>
       </mat-menu>
