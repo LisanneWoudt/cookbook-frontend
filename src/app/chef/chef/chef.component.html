@@ -14,7 +14,7 @@
   </div>
 
   <div *ngIf="!loading">
-    <div class="cookbook-title">
+    <div class="cookbook-title" *ngIf="chef.cookbooks?.length > 0">
      <b>Your cookbooks</b>
     </div>
     <mat-list class="cookbook-list">

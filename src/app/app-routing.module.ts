@@ -10,9 +10,11 @@ import {JoinRequestsComponent} from "./join-requests/join-requests.component";
 import {LoginComponent} from "./chef/login/login.component";
 import {ResetPasswordComponent} from "./chef/reset-password/reset-password.component";
 import {ChangePasswordComponent} from "./chef/change-password/change-password.component";
+import {ErrorComponent} from "./error/error.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'error', component: ErrorComponent},
   { path: 'login', component: LoginComponent},
   { path: 'cookbook', component: CookbookComponent},
   { path: 'cookbooks/:id', component: CookbookComponent},

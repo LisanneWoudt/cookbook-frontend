@@ -42,6 +42,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { ResetPasswordComponent } from './chef/reset-password/reset-password.component';
 import { ChangePasswordComponent } from './chef/change-password/change-password.component';
+import {ErrorComponent} from "./error/error.component";
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { ChangePasswordComponent } from './chef/change-password/change-password.
     AddCategoryComponent,
     LoginComponent,
     ResetPasswordComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
