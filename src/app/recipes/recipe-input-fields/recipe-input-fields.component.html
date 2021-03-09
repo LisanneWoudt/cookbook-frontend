@@ -32,6 +32,10 @@
       <mat-icon *ngIf="!editDisabled" (click)="removeImage(image)">delete</mat-icon>
     </div>
 
+    <div *ngIf="!editDisabled && overImgLimit" class="alert alert-danger">
+      Maximum 3 photos allowed
+    </div>
+
     <div *ngIf="!recipe?.image && !editDisabled" class="add-image-button">
       <button mat-stroked-button type="button" color="primary" (click)="imgFileInput.click()">Add pictures</button>
       <input hidden type="file" #imgFileInput (change)="processImage($event.target.files)" name="image" multiple/>

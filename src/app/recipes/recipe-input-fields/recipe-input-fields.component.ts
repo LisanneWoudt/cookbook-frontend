@@ -12,6 +12,7 @@ import {EstimatedTime} from "../../dto/estimated-time";
 import {ImageHelper} from "../../shared/helper/image.helper";
 import {forkJoin} from "rxjs";
 import {DomSanitizer} from "@angular/platform-browser";
+import {DialogComponent} from "../../shared/dialog/dialog.component";
 
 @Component({
   selector: 'app-recipe-input-fields',
@@ -35,7 +36,7 @@ export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit
   addingCategory: boolean;
   overImgLimit = false;
   recipe: Recipe = new Recipe();
-  loading: boolean = true;
+  loading: boolean;
 
   constructor(private recipeService: RecipeService, private imageService: ImageService,
               private dataService: DataService, private router: Router, public dialog: MatDialog,
@@ -44,6 +45,7 @@ export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit
   }
 
   ngOnInit() {
+    this.loading = true;
     if (this.recipeId) {
       this.getRecipe(this.recipeId);
     }
@@ -53,8 +55,6 @@ export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit
   getRecipe(recipeId: number) {
     this.recipeService.getRecipe(recipeId).subscribe(data => {
       this.recipe = data;
-      this.recipe.imageFiles = new Map();
-      this.recipe.images = new Map();
       this.categories.setValue(data.categories);
       this.initializeEstimatedTime(data);
 
@@ -64,9 +64,8 @@ export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit
           for (let i = 0; i < imageData.length; i++) {
             if (imageData[i].size > 0) {
               const blob = new Blob([imageData[i]], {type: 'application/octet-stream'});
-              this.recipe.imageFiles.set(i, this.blobToFile(blob, this.recipe.id + '_' + (i + 1)));
-              this.recipe.images.set(i, this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob)));
-              this.imageList.push(this.recipe.images.get(i));
+              this.imageFiles.push(this.blobToFile(blob, this.recipe.id + '_' + (i + 1)));
+              this.imageList.push(this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob)));
             }
           }
           this.loading = false;
@@ -89,7 +88,8 @@ export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit
         }
       }
       this.categoryList.sort();
-    })
+    });
+    this.loading = false;
   }
 
   getDownloadImageObservableList() {
@@ -122,6 +122,7 @@ export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit
     if (!this.recipeInputForm || !this.recipeInputForm.valid || this.imageList.length > 3) {
       return;
     }
+    this.loading = true;
     if (this.categories.value) {
       this.recipe.categories = this.categories.value;
     }
@@ -148,8 +149,7 @@ export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit
         this.recipeService.deleteRecipe(this.recipe.id).subscribe(() => {
           this.goToHome();
         }, error => {
-          console.error('error!');
-          console.error(error);
+          this.responseError(error);
         });
       }
     });
@@ -214,6 +214,11 @@ export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit
     this.loading = false;
     this.editDisabled = true;
     this.recipeSuccesfullySaved.next(this.recipe.title);
+
+    this.dialog.open(DialogComponent, {
+      width: '250px',
+      data: {title : 'Recipe updated', message: 'Your recipe has been saved'}
+    });
   }
 
   responseError(error: Error) {
