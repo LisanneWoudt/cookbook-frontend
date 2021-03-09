@@ -11,19 +11,23 @@ export class ImageService {
   baseUrl = 'images/';
 
   constructor(private http: HttpCustomClient) { }
-
-  uploadImage(filename: string, file: File): Observable<any> {
+  
+  uploadImages(filename: string, files: File[]): Observable<any> {
     const formData = new FormData();
-    formData.append('file', file, filename);
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append('files', files[i], filename);
+    }
     formData.append('name', filename);
+
     return this.http.post(environment.host + this.baseUrl + 'upload', formData);
   }
 
-  downloadThumbnail(imageId: number): Observable<Blob> {
+  downloadThumbnail(imageId: string): Observable<Blob> {
     return this.getWithResponseTypeBlob(environment.host + this.baseUrl + 'download/thumbnail?image=' + imageId);
   }
 
-  downloadImage(imageId: number): Observable<Blob> {
+  downloadImage(imageId: string): Observable<Blob> {
     return this.getWithResponseTypeBlob(environment.host + this.baseUrl + 'download?image=' + imageId);
   }
 

@@ -8,7 +8,6 @@
 </app-toolbar-without-menu>
 
 <app-recipe-input-fields
-  [loading]="false"
   [editDisabled]="false"
   (cancelEdit)="goBack()"
   (recipeSuccesfullySaved)="setRecipeCreated($event)">

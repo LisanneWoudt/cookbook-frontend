@@ -2,6 +2,7 @@ import {EventEmitter, Injectable, Output} from '@angular/core';
 import {Recipe} from "../../dto/recipe";
 import {ImageService} from "../services/image.service";
 import {DomSanitizer} from "@angular/platform-browser";
+import {forkJoin, Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class ImageHelper {
 
   getImage(recipe: Recipe, isThumbnail: boolean) {
     if (isThumbnail) {
-      this.imageService.downloadThumbnail(recipe.id).subscribe(
+      this.imageService.downloadThumbnail(recipe.id + "_1").subscribe(
         data => {
           if (data.size != 0) {
             this.setRecipeImage(recipe, data);
@@ -23,7 +24,7 @@ export class ImageHelper {
         }
       );
     } else {
-      this.imageService.downloadImage(recipe.id).subscribe(
+      this.imageService.downloadImage(recipe.id.toString()).subscribe(
         data => {
           if (data.size != 0) {
             this.setRecipeImage(recipe, data);
@@ -34,7 +35,6 @@ export class ImageHelper {
         }
       );
     }
-
   }
 
   setRecipeImage(recipe: Recipe, blobParts: any) {

@@ -1,9 +1,7 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {Recipe} from "../../dto/recipe";
 import {RecipeService} from "../../shared/services/recipe.service";
 import {ImageHelper} from "../../shared/helper/image.helper";
-import {EstimatedTime} from "../../dto/estimated-time";
 import {MyErrorHandler} from "../../shared/error/my-error-handler";
 
 @Component({
@@ -11,13 +9,12 @@ import {MyErrorHandler} from "../../shared/error/my-error-handler";
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.css']
 })
-export class RecipeDetailComponent extends MyErrorHandler implements OnInit, AfterViewInit {
+export class RecipeDetailComponent extends MyErrorHandler implements OnInit {
 
   sub: any;
-  recipe: Recipe;
-  promises: Array<any> = [];
   toolbarEditEnabled = false;
   cookbookId: number;
+  recipeId: number;
 
   @ViewChild('recipeInputFields', {static: false}) child;
 
@@ -29,33 +26,8 @@ export class RecipeDetailComponent extends MyErrorHandler implements OnInit, Aft
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.cookbookId = +params.cookbookId;
-      this.getRecipe(+params.id);
+      this.recipeId = +params.id;
     });
-  }
-
-  ngAfterViewInit() {
-    Promise.all(this.promises)
-      .then(() => {
-        this.child.loading = false;
-      }, error => {
-         this.child.loading = false;
-        console.error(error);
-      });
-  }
-
-  getRecipe(recipeId: number) {
-    this.recipeService.getRecipe(recipeId).subscribe(data => {
-      this.recipe = data;
-      this.initializeEstimatedTime(data);
-      this.child.categories.setValue(this.recipe.categories);
-      this.promises.push(this.imageHelper.getImage(this.recipe, false));
-    });
-  }
-
-  initializeEstimatedTime(recipe: Recipe) {
-    if (recipe.estimatedTime === null) {
-      recipe.estimatedTime = new EstimatedTime();
-    }
   }
 
   editRecipe() {
@@ -68,7 +40,7 @@ export class RecipeDetailComponent extends MyErrorHandler implements OnInit, Aft
   }
 
   cancelEdit() {
-    this.getRecipe(this.recipe.id);
+    this.child.getRecipe(this.recipeId);
     this.child.setEditDisabled(true);
     this.toolbarEditEnabled = false;
   }
