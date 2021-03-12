@@ -21,6 +21,7 @@ export class JoinRequestsComponent extends MyErrorHandler implements OnInit {
   cookbookId: number;
   requests: JoinCookbookRequest[];
   cookbooks: Cookbook[] = [];
+  loading: boolean = true;
 
   constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog,
               private joinCookbookRequestService: JoinCookbookRequestService, private dataService: DataService,
@@ -50,6 +51,10 @@ export class JoinRequestsComponent extends MyErrorHandler implements OnInit {
         this.getCookbookName(this.requests[i]);
         this.getChefName(this.requests[i]);
       }
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+      this.handleError(error, this.router, this.dataService);
     })
   }
 
@@ -82,8 +87,11 @@ export class JoinRequestsComponent extends MyErrorHandler implements OnInit {
   }
 
   saveRequest(request: JoinCookbookRequest) {
+    this.loading = true;
     this.joinCookbookRequestService.saveRequest(request).subscribe(() => {
-      window.location.reload();
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate([this.router.url]);
     });
   }
 

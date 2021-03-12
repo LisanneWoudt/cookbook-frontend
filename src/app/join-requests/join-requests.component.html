@@ -3,19 +3,29 @@
 </app-toolbar-without-menu>
 
 <div class="page">
-  <div *ngFor="let request of requests" class="requests-block">
-    Request from Chef <b>{{request.chefName}}</b> to join cookbook <b> {{request.cookbookName}} </b>
-    <div>
-      <button mat-icon-button color="primary" (click)="confirm(request, true)">
-        <mat-icon>check</mat-icon>
-      </button>
-      <button mat-icon-button color="warn" (click)="confirm(request, false)">
-        <mat-icon>clear</mat-icon>
-      </button>
+  <div *ngIf="loading">
+    <mat-progress-spinner
+      class="spinner"
+      color="primary"
+      mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+  <div *ngIf="!loading">
+    <div *ngFor="let request of requests" class="requests-block">
+      Request from Chef <b>{{request.chefName}}</b> to join cookbook <b> {{request.cookbookName}} </b>
+      <div>
+        <button mat-icon-button color="primary" (click)="confirm(request, true)">
+          <mat-icon>check</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="confirm(request, false)">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
     </div>
+
+    <h4 class="text-center" *ngIf="requests?.length === 0">
+      No open join requests
+    </h4>
   </div>
 
-  <h4 class="text-center" *ngIf="requests?.length === 0">
-    No open join requests
-  </h4>
 </div>

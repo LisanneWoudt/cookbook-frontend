@@ -8,7 +8,9 @@
 <app-toolbar-cookbook-other-chef *ngIf="!ownCookbook()"
                       [cookbook]="cookbook"
                       [chef]="chef"
-                      (joinCookbook)="requestToJoinCookbook()">
+                      (joinCookbook)="requestToJoinCookbook()"
+                      [requestSent]="requestSent"
+                      [requestStatus]="requestStatus">
 </app-toolbar-cookbook-other-chef>
 
 <div class="page">
@@ -21,11 +23,11 @@
   </div>
 
   <div *ngIf="!loading">
-    <h4 class="text-center" *ngIf="chef.cookbooks.length !== 0 && recipes.length === 0" >
+    <h4 class="text-center" *ngIf="chef?.cookbooks?.length !== 0 && recipes.length === 0" >
       No recipes found
     </h4>
 
-    <span class="text-center" *ngIf="chef.cookbooks.length === 0 && ownCookbook()" >
+    <span class="text-center" *ngIf="chef?.cookbooks?.length === 0 && ownCookbook()" >
     You don't have any cookbooks yet. Start by creating one or joining an existing cookbook.
   </span>
 

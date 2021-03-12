@@ -14,18 +14,14 @@ export class ToolbarCookbookOtherChefComponent implements OnInit {
 
   @Input() cookbook: Cookbook;
   @Input() chef: Chef;
+  @Input() requestSent: boolean;
+  @Input() requestStatus: string;
 
   @Output() joinCookbook = new EventEmitter();
 
-  requestSent = false;
-  requestStatus: string;
+  constructor(private router: Router) { }
 
-  constructor(private router: Router, private joinCookbookRequestService: JoinCookbookRequestService,
-              private dataService: DataService) { }
-
-  ngOnInit() {
-    this.hasSentJoinRequest();
-  }
+  ngOnInit() {}
 
   tojoinCookbook() {
     this.joinCookbook.next();
@@ -33,17 +29,6 @@ export class ToolbarCookbookOtherChefComponent implements OnInit {
 
   toSearchCookbook() {
     this.router.navigate(['/cookbook/search']);
-  }
-
-  hasSentJoinRequest() {
-    this.joinCookbookRequestService.checkRequestSent(this.dataService.getChef().id, this.cookbook.id).subscribe(result => {
-      if (result) {
-        this.requestSent = true;
-        this.requestStatus = result.status;
-      }
-    }, error => {
-      console.error(error);
-    })
   }
 
   goToCookbook(cookbookId: number) {

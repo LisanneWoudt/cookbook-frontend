@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {DataService} from "../../shared/services/data.service";
 import {Cookbook} from "../../dto/cookbook";
 import {CookbookService} from "../../shared/services/cookbook.service";
@@ -29,6 +29,8 @@ export class CookbookComponent extends MyErrorHandler implements OnInit {
   loading: boolean = true;
   promises: Array<any> = [];
   sub: any;
+  requestSent: boolean;
+  requestStatus: string;
 
   constructor(private dataService: DataService, private chefService: ChefService,
               private cookbookService: CookbookService, private imageService: ImageService,
@@ -44,6 +46,7 @@ export class CookbookComponent extends MyErrorHandler implements OnInit {
       if (+params.id) {
         this.getCookbook(+params.id);
         this.getChef();
+        this.hasSentJoinRequest(+params.id);
       } else {
         this.getCookbookByChef();
       }
@@ -116,6 +119,17 @@ export class CookbookComponent extends MyErrorHandler implements OnInit {
       });
   }
 
+  hasSentJoinRequest(cookbookId: any) {
+    this.joinCookbookRequestService.checkRequestSent(this.dataService.getChef().id, cookbookId).subscribe(result => {
+      if (result) {
+        this.requestSent = true;
+        this.requestStatus = result.status;
+      }
+    }, error => {
+      console.error(error);
+    })
+  }
+
   addRecipe() {
     this.router.navigate(['/recipes/add']);
   }
@@ -133,18 +147,19 @@ export class CookbookComponent extends MyErrorHandler implements OnInit {
     this.loading = true;
     this.joinCookbookRequestService.saveRequest(request).subscribe(() => {
       this.loading = false;
-      this.openDialog('Request send', 'Request to join this cookbook has been send');
+      this.hasSentJoinRequest(this.cookbook.id);
+      this.openDialog('Request send', 'Request to join this cookbook has been send', request.cookbookId);
     });
   }
 
-  openDialog(title: string, message: string): void {
+  openDialog(title: string, message: string, cookbookId: number): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '250px',
       data: {title, message}
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      window.location.reload()
+      this.goToCookbook(cookbookId);
     });
   }
 
@@ -152,14 +167,11 @@ export class CookbookComponent extends MyErrorHandler implements OnInit {
     return this.dataService.isOwnCookbook();
   }
 
-  goToCookbook(cookbookId: any) {
-    if (this.router.url.endsWith('/cookbooks/' + cookbookId)) {
-      this.router.navigate(['/cookbooks/' + cookbookId]);
-    } else if (this.router.url.includes('/cookbooks/')) {
-      window.location.reload();
-    } else {
-      this.router.navigate(['/cookbooks/' + cookbookId]);
+  goToCookbook(cookbookId) {
+    if (!this.router.url.endsWith('/cookbooks/' + cookbookId)) {
+      this.loading = true;
     }
+    this.router.navigate(['/cookbooks/' + cookbookId]);
   }
 
   logout() {
