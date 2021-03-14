@@ -43,6 +43,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { ResetPasswordComponent } from './chef/reset-password/reset-password.component';
 import { ChangePasswordComponent } from './chef/change-password/change-password.component';
 import {ErrorComponent} from "./error/error.component";
+import { EditCookbookComponent } from './cookbook/edit-cookbook/edit-cookbook.component';
+import { ToolbarEditCookbookComponent } from './shared/toolbar/toolbar-edit-cookbook/toolbar-edit-cookbook.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,9 @@ import {ErrorComponent} from "./error/error.component";
     LoginComponent,
     ResetPasswordComponent,
     ChangePasswordComponent,
-    ErrorComponent
+    ErrorComponent,
+    EditCookbookComponent,
+    ToolbarEditCookbookComponent
   ],
   imports: [
     BrowserModule,

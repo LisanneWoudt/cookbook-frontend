@@ -11,6 +11,7 @@ import {LoginComponent} from "./chef/login/login.component";
 import {ResetPasswordComponent} from "./chef/reset-password/reset-password.component";
 import {ChangePasswordComponent} from "./chef/change-password/change-password.component";
 import {ErrorComponent} from "./error/error.component";
+import {EditCookbookComponent} from "./cookbook/edit-cookbook/edit-cookbook.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'cookbook', component: CookbookComponent},
   { path: 'cookbooks/:id', component: CookbookComponent},
   { path: 'cookbook/add', component: AddCookbookComponent},
+  { path: 'cookbook/edit', component: EditCookbookComponent},
   { path: 'cookbook/search', component: SearchCookbookComponent},
   { path: 'recipes/add', component: AddRecipeComponent, data: {title: 'Create recipe'}},
   { path: 'recipes/:cookbookId/:id', component: RecipeDetailComponent, data: {title: 'Recipe details'}},

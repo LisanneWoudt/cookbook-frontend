@@ -21,6 +21,10 @@
           <mat-icon>menu_book</mat-icon>
           <span>Create cookbook</span>
         </button>
+        <button (click)="editCookbook()" mat-menu-item>
+          <mat-icon>edit</mat-icon>
+          <span>Edit cookbook</span>
+        </button>
         <button mat-menu-item (click)="toJoinRequests()">
           <mat-icon matBadge="{{requestCount}}" matBadgePosition="above after" matBadgeColor="accent">message</mat-icon>
           <span>Join requests</span>

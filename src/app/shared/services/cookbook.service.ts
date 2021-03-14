@@ -13,12 +13,15 @@ export class CookbookService {
 
   constructor(private http: HttpCustomClient) { }
 
-  addCookbook(cookbook: Cookbook): Observable<any> {
-    return this.http.post(environment.host + this.baseUrl + 'add', cookbook);
+  saveCookbook(cookbook: Cookbook): Observable<any> {
+    return this.http.post(environment.host + this.baseUrl + 'save', cookbook);
   }
 
   getCookbook(id: number): Observable<Cookbook> {
     return this.http.get(environment.host + this.baseUrl + id);
   }
 
+  deleteCookbook(id: number): Observable<void> {
+    return this.http.delete(environment.host + this.baseUrl + id);
+  }
 }

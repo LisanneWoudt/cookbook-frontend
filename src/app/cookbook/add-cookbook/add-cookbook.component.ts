@@ -35,7 +35,7 @@ export class AddCookbookComponent extends MyErrorHandler implements OnInit {
     }
     this.cookbook.creatorId = this.userId;
 
-    this.cookbookService.addCookbook(this.cookbook).subscribe(result => {
+    this.cookbookService.saveCookbook(this.cookbook).subscribe(result => {
       this.responseSuccess(result);
     }, error => {
       super.handleError(error, this.router, this.dataService);

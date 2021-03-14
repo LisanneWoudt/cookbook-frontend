@@ -81,6 +81,10 @@ export class DataService {
     return false;
   }
 
+  isCookbookCreator() {
+    return this.chef.id === this.cookbook.creatorId;
+  }
+
   setError(error: Error) {
     this.error = error;
   }

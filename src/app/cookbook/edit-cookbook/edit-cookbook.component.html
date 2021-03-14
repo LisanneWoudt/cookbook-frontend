@@ -1,0 +1,20 @@
+<app-toolbar-edit-cookbook
+  (goBack)="navigateToHome()"
+  (deleteCookbook)="confirmDeleteCookbook()">
+</app-toolbar-edit-cookbook>
+
+<div class="page">
+  <form #cookbookInputForm="ngForm" (ngSubmit)="saveCookbook(cookbookInputForm.valid)" class="input-fields-container">
+
+    <mat-form-field>
+      <input name="brand" matInput placeholder="Name" [(ngModel)]="cookbook.name" #name="ngModel" maxlength="20" required [disabled]="!isCookbookCreator"/>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger"></div>
+    </mat-form-field>
+
+    <button *ngIf="isCookbookCreator" mat-flat-button color="primary" type="submit">
+      Save
+    </button>
+    <i *ngIf="!isCookbookCreator">Only the creator of this cookbook can edit or delete the cookbook</i>
+
+  </form>
+</div>
