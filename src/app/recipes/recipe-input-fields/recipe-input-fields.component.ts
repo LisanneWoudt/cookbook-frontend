@@ -13,6 +13,7 @@ import {ImageHelper} from "../../shared/helper/image.helper";
 import {forkJoin} from "rxjs";
 import {DomSanitizer} from "@angular/platform-browser";
 import {DialogComponent} from "../../shared/dialog/dialog.component";
+import {CdkTextareaAutosize} from "@angular/cdk/text-field";
 
 @Component({
   selector: 'app-recipe-input-fields',
@@ -27,6 +28,7 @@ export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit
   @Output() cancelEdit = new EventEmitter();
 
   @ViewChild('recipeInputForm', {static: false}) recipeInputForm;
+  @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
 
   imageList: any[] = [];
   imageFiles: File[] = [];
