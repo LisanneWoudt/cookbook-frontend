@@ -39,9 +39,9 @@ export class AddRecipeComponent implements OnInit {
 
   }
 
-  setRecipeCreated(recipeName: string) {
+  setRecipeCreated() {
     this.recipeCreated = true;
-    this.toolbarTitle = recipeName;
+    this.toolbarTitle = '';
   }
 
   goBack() {

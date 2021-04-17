@@ -130,14 +130,6 @@ export class CookbookComponent extends MyErrorHandler implements OnInit {
     })
   }
 
-  addRecipe() {
-    this.router.navigate(['/recipes/add']);
-  }
-
-  addCookbook() {
-    this.router.navigate(['/cookbook/add']);
-  }
-
   requestToJoinCookbook() {
     const request = new JoinCookbookRequest();
     request.chefId = this.chef.id;

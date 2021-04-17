@@ -11,7 +11,7 @@
 
     <mat-form-field class="input-disabled">
       <input class="input-disabled" name="brand" matInput placeholder="Name" [(ngModel)]="recipe.title" #name="ngModel"
-             [disabled]="editDisabled" maxlength="30" required/>
+             [disabled]="editDisabled" maxlength="50" required/>
       <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger"></div>
     </mat-form-field>
 
@@ -22,7 +22,7 @@
           <mat-option [disabled]="editDisabled" *ngFor="let category of categoryList" [value]="category">{{category}}</mat-option>
         </mat-select>
       </mat-form-field>
-      <button *ngIf="!editDisabled" mat-icon-button color="primary" (click)="toggleAddingCategory()">
+      <button *ngIf="!editDisabled" class="add-category-button" mat-mini-fab color="primary" (click)="toggleAddingCategory()">
         <mat-icon>add</mat-icon>
       </button>
     </div>

@@ -35,10 +35,6 @@
       [recipes]="recipes"
       [cookbook]="cookbook">
     </app-all-recipes>
-    <button *ngIf="ownCookbook()" mat-fab color="primary" class="floating-button-add"
-            (click)="chef.cookbooks.length === 0 ? addCookbook() : addRecipe()">
-      <mat-icon>add</mat-icon>
-    </button>
   </div>
 
 </div>

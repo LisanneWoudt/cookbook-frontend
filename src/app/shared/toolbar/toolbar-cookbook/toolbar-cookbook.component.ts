@@ -35,6 +35,10 @@ export class ToolbarCookbookComponent implements OnInit {
     this.router.navigate(['/cookbook/add']);
   }
 
+  addRecipe() {
+    this.router.navigate(['/recipes/add']);
+  }
+
   editCookbook() {
     this.router.navigate(['/cookbook/edit']);
   }
