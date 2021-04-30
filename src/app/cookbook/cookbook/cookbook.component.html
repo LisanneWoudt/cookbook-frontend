@@ -28,8 +28,8 @@
     </h4>
 
     <span class="text-center" *ngIf="chef?.cookbooks?.length === 0 && ownCookbook()" >
-    You don't have any cookbooks yet. Start by creating one or joining an existing cookbook.
-  </span>
+      You don't have any cookbooks yet. Start by creating one or joining an existing cookbook.
+    </span>
 
     <app-all-recipes *ngIf="recipes.length !== 0"
       [recipes]="recipes"

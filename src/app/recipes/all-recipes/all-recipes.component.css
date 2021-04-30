@@ -7,3 +7,7 @@
   font-size:22px;
 }
 
+.category-select {
+  width: 100%;
+  max-height: 60px;
+}
