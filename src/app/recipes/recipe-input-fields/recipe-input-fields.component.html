@@ -28,7 +28,7 @@
     </div>
 
     <div class="preview-image">
-      <ng-image-slider *ngIf="editDisabled"
+      <ng-image-slider *ngIf="editDisabled && imgCarousel.length > 0"
                        [images]="imgCarousel"
                        [showArrow]="false"
                        [animationSpeed]="0.4"
