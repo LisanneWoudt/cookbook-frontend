@@ -40,6 +40,8 @@ export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit
   recipe: Recipe = new Recipe();
   loading: boolean;
 
+  imgCarousel: Array<object> = [];
+
   constructor(private recipeService: RecipeService, private imageService: ImageService,
               private dataService: DataService, private router: Router, public dialog: MatDialog,
               private imageHelper: ImageHelper, private sanitizer: DomSanitizer) {
@@ -63,11 +65,17 @@ export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit
       forkJoin(this.getDownloadImageObservableList()).subscribe(
         imageData => {
           this.imageList = [];
+          this.imgCarousel = [];
           for (let i = 0; i < imageData.length; i++) {
             if (imageData[i].size > 0) {
               const blob = new Blob([imageData[i]], {type: 'application/octet-stream'});
               this.imageFiles.push(this.blobToFile(blob, this.recipe.id + '_' + (i + 1)));
               this.imageList.push(this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob)));
+
+              this.imgCarousel.push({
+                thumbImage: URL.createObjectURL(blob),
+                image: URL.createObjectURL(blob),
+              })
             }
           }
           this.loading = false;
@@ -196,6 +204,13 @@ export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit
 
     for (let i = 0; i < files.length ; i++) {
       this.imageFiles.push(files[i]);
+
+      const blob = new Blob([files[i]], {type: files[i].type});
+      this.imgCarousel.push({
+        thumbImage: URL.createObjectURL(blob),
+        image: URL.createObjectURL(blob)
+      });
+
       const reader = new FileReader();
       reader.onload = () => {
         this.imageList.push(reader.result);
@@ -209,6 +224,7 @@ export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit
     if (index > -1) {
       this.imageList.splice(index, 1);
       this.imageFiles.splice(index, 1);
+      this.imgCarousel.splice(index, 1);
     }
   }
 
@@ -219,7 +235,7 @@ export class RecipeInputFieldsComponent extends MyErrorHandler implements OnInit
 
     this.dialog.open(DialogComponent, {
       width: '250px',
-      data: {title : 'Recipe updated', message: 'Your recipe has been saved'}
+      data: {title : 'Recipe saved', message: 'Your recipe has been saved'}
     });
   }
 

@@ -1,6 +1,6 @@
 <div>
 
-  <div>
+  <div *ngIf="categories?.length > 0">
       <mat-form-field appearance="fill" class="category-select">
         <mat-label>Filter</mat-label>
         <mat-select [formControl]="categoriesFormControl" multiple class="category-panel">

@@ -27,9 +27,20 @@
       </button>
     </div>
 
-    <div *ngFor="let image of imageList">
-      <img class="preview-image" [src]="image">
-      <mat-icon *ngIf="!editDisabled" (click)="removeImage(image)">delete</mat-icon>
+    <div class="preview-image">
+      <ng-image-slider *ngIf="editDisabled"
+                       [images]="imgCarousel"
+                       [showArrow]="false"
+                       [animationSpeed]="0.4"
+                       [manageImageRatio]="true">
+      </ng-image-slider>
+    </div>
+
+    <div *ngIf="!editDisabled">
+      <div *ngFor="let image of imageList">
+        <img class="preview-image" [src]="image">
+        <mat-icon (click)="removeImage(image)">delete</mat-icon>
+      </div>
     </div>
 
     <div *ngIf="!editDisabled && overImgLimit" class="alert alert-danger">

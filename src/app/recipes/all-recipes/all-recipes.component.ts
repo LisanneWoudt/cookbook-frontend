@@ -26,7 +26,7 @@ export class AllRecipesComponent implements OnInit {
   ngOnInit() {
     this.categories = [];
     this.getCategoriesForAllRecipes(this.cookbook.id);
-    this.allSelectedRecipes = this.recipes;
+    this.allSelectedRecipes =  this.recipes.sort((a,b) => a.title.localeCompare(b.title));
   }
 
   getCategoriesForAllRecipes(cookbookId: number) {

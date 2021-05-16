@@ -45,6 +45,7 @@ import { ChangePasswordComponent } from './chef/change-password/change-password.
 import {ErrorComponent} from "./error/error.component";
 import { EditCookbookComponent } from './cookbook/edit-cookbook/edit-cookbook.component';
 import { ToolbarEditCookbookComponent } from './shared/toolbar/toolbar-edit-cookbook/toolbar-edit-cookbook.component';
+import {NgImageSliderModule} from "ng-image-slider";
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { ToolbarEditCookbookComponent } from './shared/toolbar/toolbar-edit-cook
     MatBadgeModule,
     MatTooltipModule,
     MatTabsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    NgImageSliderModule
   ],
   providers: [HttpCustomClient],
   bootstrap: [AppComponent],
